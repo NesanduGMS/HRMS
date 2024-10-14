@@ -1,18 +1,15 @@
-const db = require('../config/db');
+const db = require('../config/db'); // Make sure this uses mysql2/promise
 
-const getAllLeaveReports = () => {
-  return new Promise((resolve, reject) => {
+const getAllLeaveReports = async () => {
+  try {
     const query = "SELECT * FROM Leave_Request WHERE Employee_Id='E0000001'";
-    db.query(query, (err, results) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(results);
-      }
-    });
-  });
+    const [results] = await db.query(query); // Use await for the query
+    return results; // Return the results directly
+  } catch (err) {
+    throw err; // Rethrow the error to handle it in the controller
+  }
 };
 
 module.exports = {
-  getAllLeaveReports
+  getAllLeaveReports,
 };

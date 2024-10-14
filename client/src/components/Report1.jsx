@@ -1,12 +1,12 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ReportCard1() {
-  const { id_to_transfer } = useParams();
   const navigate = useNavigate();
 
   const handleGenerateReport = () => {
-    navigate(`/PageHR/${id_to_transfer}/ReportGenaration/Report1`);
+    // Navigate to the LeaveReportPage component
+    navigate(`/leave-report`);  // This route will now point to the report page
   };
 
   return (

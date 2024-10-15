@@ -4,10 +4,10 @@ require('dotenv').config(); // If you're using environment variables
 
 // Create a connection to the database
 const db = mysql.createPool({
-    host: "db-mysql-nyc3-03427-do-user-17948696-0.l.db.ondigitalocean.com",
-    user: "doadmin",
-    password: "AVNS_2wkHuRrvaIqCM21kN2q", // Replace with your MySQL password
-    database: "defaultdb",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD, // Replace with your MySQL password
+    database: process.env.DB_NAME,
     port: 25060
 });
 

@@ -1,5 +1,7 @@
 const express = require('express');
+const { default: db } = require('./utils/db');
 const app = express();
+
 
 app.get('/', (req, res) => {
     res.send('Hello Nesa');

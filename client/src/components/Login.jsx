@@ -1,7 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import background from '../assets/background.jpg'; // Import background image
+import {useNavigate} from 'react-router-dom'; // Import useNavigate
+import axios from 'axios'; // Import axios
+
 
 const LoginPage = () => {
+
+  axios.defaults.withCredentials=true;
+  
+  const[values,setValues] = useState({
+    userid:'',
+    password:''
+  });
+   
+  // const [error,setError]=useState()
+  const navigate = useNavigate()
+  const handleSubmit=(event)=>{
+    event.preventDefault()
+
+    
+
+    axios.post('http://localhost:3005/auth/login',values)
+    .then(result=>{
+        if (result.data.loginStatus){
+            navigate('/dashboard', { state: { ID: result.data.Employeeid} });
+        }
+        else{
+            console.log(result.data.Error)
+        }
+        
+    })
+    .catch(err => console.log(err))
+}
+
   return (
     <div
       className="flex justify-end items-center bg-cover bg-center"
@@ -25,7 +56,7 @@ const LoginPage = () => {
         <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
 
         {/* Login Form */}
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* Username Input */}
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700 font-semibold mb-2">Username</label>
@@ -35,6 +66,7 @@ const LoginPage = () => {
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500 text-white bg-gray-800"
               placeholder="Enter your username"
               autoComplete="off"
+              onChange={(e)=>setValues({...values,userid:e.target.value})}
             />
           </div>
 
@@ -47,6 +79,7 @@ const LoginPage = () => {
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-500 text-white bg-gray-800"
               placeholder="Enter your password"
               autoComplete="off"
+              onChange={(e)=>setValues({...values,password:e.target.value})}
             />
           </div>
 

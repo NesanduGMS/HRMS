@@ -23,7 +23,8 @@ const LoginPage = () => {
     axios.post('http://localhost:3005/auth/login',values)
     .then(result=>{
         if (result.data.loginStatus){
-            navigate('/dashboard', { state: { ID: result.data.Employeeid} });
+            localStorage.setItem('ID',result.data.Employeeid)
+            navigate('/dashboard');
         }
         else{
             console.log(result.data.Error)

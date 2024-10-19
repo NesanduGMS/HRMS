@@ -6,15 +6,11 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
   axios.defaults.withCredentials = true;
-
-  const location = useLocation();
-
-  const userId = location.state?.ID; // Access the userId passed from the login
-
+  const location = useLocation(); // Get the current location
   const currentPath = location.pathname; // Get the current pathname
 
   const tabs = [
-    { name: 'Profile', icon: <FaUser />, path: '/dashboard/profile' },
+    { name: 'Profile', icon: <FaUser />, path: '/dashboard/profile'},
     { name: 'Performance', icon: <FaChartLine />, path: '/dashboard/performance' },
     { name: 'Leave Info', icon: <FaInfoCircle />, path: '/dashboard/leaveinfo' },
     { name: 'Leave Appeals', icon: <FaFileAlt />, path: '/dashboard/leaveappeal' },
@@ -57,3 +53,4 @@ const Dashboard = () => {
 
 
 export default Dashboard;
+

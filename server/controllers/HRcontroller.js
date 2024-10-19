@@ -20,3 +20,49 @@ export const login = (req,res)=>{
 
 
 }
+
+export const userdetails = (req,res)=>{
+    
+    const sql = "SELECT * FROM Profileinfo WHERE Employee_Id = ?";
+    db.query(sql,[req.params.userId],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            
+            return res.json({Status:true,Result:result[0]});
+        }
+        else{
+            return res.json({Error:"No Profile found"});
+        }
+    })
+}
+
+
+export const maxleave = (req,res)=>{
+    const sql = "SELECT * FROM LeaveMax WHERE Employee_Id = ?";
+    db.query(sql,[req.params.userId],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result[0]});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+
+}
+
+
+
+export const avlleave = (req,res)=>{
+    const sql = "SELECT * FROM Available_Leaves WHERE Employee_Id = ?";
+    db.query(sql,[req.params.userId],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result[0]});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+
+}

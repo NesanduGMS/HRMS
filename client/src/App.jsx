@@ -67,6 +67,7 @@ import Performance from "./pages/Performance";
 import Leaveinfo from "./pages/Leaveinfo";
 import Leaveappeal from "./pages/Leaveappeal";
 import Manageemployee from "./pages/Manageemployee";
+import Applyleave from "./pages/Applyleave";
 
 const App = () => {
   const location = useLocation();
@@ -89,6 +90,8 @@ const App = () => {
             <Route path="leaveinfo" element={<Leaveinfo />} />
             <Route path="leaveappeal" element={<Leaveappeal />} />
             <Route path="manageemployee" element={<Manageemployee />} />
+            <Route path="applyleave" element={<Applyleave/>}/>
+           
           </Route>
           <Route path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />

@@ -24,6 +24,7 @@ const LoginPage = () => {
     .then(result=>{
         if (result.data.loginStatus){
             localStorage.setItem('ID',result.data.Employeeid)
+            localStorage.setItem('ROLE',result.data.ROLE)
             navigate('/dashboard');
         }
         else{

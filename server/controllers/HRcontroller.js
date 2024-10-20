@@ -10,7 +10,7 @@ export const login = (req,res)=>{
             const role = result[0].Role;
             const token = jwt.sign({Role:role,Userid:result[0].User_Id},'sercretkey',{expiresIn:'1d'});
             res.cookie('token',token)
-            return res.json({loginStatus:true,Employeeid:result[0].Employee_Id,Role:role});
+            return res.json({loginStatus:true,Employeeid:result[0].Employee_Id,ROLE:role});
         }
         else{
             return res.json({loginStatus:false,Error:"wrong email or password"});
@@ -65,4 +65,51 @@ export const avlleave = (req,res)=>{
         }
     })
 
+}
+
+
+
+
+
+export const viewinfoa = (req,res)=>{
+    const sql = "SELECT * FROM Employee WHERE Employee_Id = ?";
+    db.query(sql,[req.params.ID],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result[0]});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+
+}
+
+
+export const viewinfob = (req,res)=>{
+    const sql = "SELECT * FROM Emergency_Information WHERE Employee_Id = ?";
+    db.query(sql,[req.params.ID],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result[0]});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+}
+
+
+
+export const viewinfoc = (req,res)=>{
+    const sql = "SELECT * FROM Employee_Contact_Info WHERE Employee_Id = ?";
+    db.query(sql,[req.params.ID],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result[0]});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
 }

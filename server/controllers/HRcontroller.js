@@ -53,6 +53,7 @@ export const maxleave = (req,res)=>{
 
 
 
+
 export const avlleave = (req,res)=>{
     const sql = "SELECT * FROM Available_Leaves WHERE Employee_Id = ?";
     db.query(sql,[req.params.userId],(err,result)=>{
@@ -106,7 +107,7 @@ export const viewinfoc = (req,res)=>{
     db.query(sql,[req.params.ID],(err,result)=>{
         if(err)return res.json({Status:false,Error:'query error'});
         if(result.length>0){
-            return res.json({Status:true,Result:result[0]});
+            return res.json({Status:true,Result:result});
         }
         else{
             return res.json({Error:"No Data found"});

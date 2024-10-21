@@ -43,19 +43,7 @@ function LeaveForm() {
 
         {/* Form */}
         <form onSubmit={handleSubmit}>
-          {/* Name Input Field */}
-          <div className="mb-3">
-            <label className="block text-gray-700 font-bold mb-1" htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
-              required
-            />
-          </div>
+
 
           {/* Leave Type Select Field */}
           <div className="mb-3">
@@ -103,6 +91,20 @@ function LeaveForm() {
               value={formData.startDate}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" // Add focus styles for better visibility
+              required
+            />
+          </div>
+
+          {/* Name Input Field */}
+          <div className="mb-3">
+            <label className="block text-gray-700 font-bold mb-1" htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
               required
             />
           </div>

@@ -1,4 +1,3 @@
-
 import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -14,18 +13,17 @@ import Leaveappeal from "./pages/Leaveappeal";
 import Manageemployee from "./pages/Manageemployee";
 import Applyleave from "./pages/Applyleave";
 import Viewpersonalinfo from "./pages/Viewpersonalinfo";
+import AddEmployeePage from "./pages/AddEmployeePage"; // Import AddEmployeePage
 
 const App = () => {
   const location = useLocation();
-
-
 
   // Check if the current path starts with '/dashboard' (for dashboard and all its subroutes)
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
     <div>
-      {/* Conditionally render Header only if not on /dashboard */}
+      {/* Conditionally render Header only if not on /dashboard */} 
       {!isDashboard && <Header />}
 
       {/* Render other routes */}
@@ -33,13 +31,14 @@ const App = () => {
         <Routes>
           <Route path="/dashboard" element={<Dashboard />}>
             {/* Include userId as a route parameter */}
-            <Route path="profile" element={<Profile/>} />
+            <Route path="profile" element={<Profile />} />
             <Route path="performance" element={<Performance />} />
             <Route path="leaveinfo" element={<Leaveinfo />} />
             <Route path="leaveappeal" element={<Leaveappeal />} />
             <Route path="manageemployee" element={<Manageemployee />} />
-            <Route path="applyleave" element={<Applyleave/>}/>
-            <Route path="personalinfo" element={<Viewpersonalinfo/>}/>
+            <Route path="applyleave" element={<Applyleave />} />
+            <Route path="personalinfo" element={<Viewpersonalinfo />} />
+            <Route path="addemployee" element={<AddEmployeePage />} /> {/* Add this route */}
           </Route>
           <Route path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />

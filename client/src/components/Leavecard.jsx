@@ -1,83 +1,80 @@
-// import React from 'react';
 
-// function LeaveCard({ title, days }) {
-//   return (
-//     <div className="bg-gray-300 rounded-lg shadow-md p-4"> {/* Tailwind CSS classes for styling */}
-//       <div className="text-center">
-//         <h5 className="text-lg font-bold mb-2">{title}</h5>
-//         <p className="text-gray-700">{days} days</p>
-//       </div>
-//     </div>
-//   );
-// }
 
-// export default LeaveCard;
-
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LeaveForm() {
-  const [formData, setFormData] = useState({
-    name: '',
+  const EmployeeId = localStorage.getItem('ID'); // Retrieve employee ID from localStorage
+
+  const [sup, setSup] = useState(''); // Supervisor ID state
+  const [error, setError] = useState(null); // Error handling state
+  const navigate = useNavigate();
+
+  // Initial state for leave details
+  const [leaveDetail, setLeaveDetail] = useState({
     leaveType: '',
-    department: '',
     startDate: '',
-  });
+    numDays: '',
+    supervisorId: ''
+  }); 
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
+  // Submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form Data Submitted:', formData);
+
+    // Ensure supervisorId is included in leave details before making the request
+    const leaveData = { ...leaveDetail, supervisorId: sup };
+
+    axios.post(`http://localhost:3005/auth/addleavereq/${EmployeeId}`, leaveData)
+      .then(result => {
+        if (result.data.Status) {
+          navigate('/dashboard/leaveinfo'); // Redirect to leave info page on success
+        } else {
+          alert(result.data.Error); // Show error message if there is an issue
+        }
+      })
+      .catch(err => console.log(err.message)); // Log any errors
   };
 
+  // Fetch supervisor data on component mount
+  useEffect(() => {
+    axios.get(`http://localhost:3005/auth/selsupervisor/${EmployeeId}`)
+      .then(result => {
+        if (result.data.Status) {
+          setSup(result.data.Result.Supervisor_Id || ''); // Set supervisor ID if available
+        } else {
+          setError(result.data.Error); // Handle any errors
+        }
+      })
+      .catch(err => setError(err.message)); // Handle request errors
+  }, [EmployeeId]);
+
   return (
-    <div className="flex items-center justify-center h-screen"> {/* Centers the form vertically and horizontally */}
+    <div className="flex items-center justify-center h-screen">
       <div className="bg-gray-300 p-6 rounded-lg shadow-md max-w-md w-full">
-        {/* Heading */}
         <h2 className="text-center text-2xl font-bold text-gray-700 mb-4">LEAVE FORM</h2>
 
-        {/* Form */}
+        {/* Display error message if any */}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
         <form onSubmit={handleSubmit}>
-
-
           {/* Leave Type Select Field */}
           <div className="mb-3">
             <label className="block text-gray-700 font-bold mb-1" htmlFor="leaveType">Leave Type</label>
             <select
               id="leaveType"
               name="leaveType"
-              value={formData.leaveType}
-              onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
               required
+              value={leaveDetail.leaveType}
+              onChange={(e) => setLeaveDetail({ ...leaveDetail, leaveType: e.target.value })}
             >
               <option value="">Select Leave Type</option>
-              <option value="sick">Sick Leave</option>
-              <option value="casual">Casual Leave</option>
-              <option value="vacation">Vacation Leave</option>
-            </select>
-          </div>
-
-          {/* Department Select Field */}
-          <div className="mb-3">
-            <label className="block text-gray-700 font-bold mb-1" htmlFor="department">Department</label>
-            <select
-              id="department"
-              name="department"
-              value={formData.department}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
-              required
-            >
-              <option value="">Select Department</option>
-              <option value="hr">Human Resources</option>
-              <option value="engineering">Engineering</option>
-              <option value="sales">Sales</option>
+              <option value="annual">Annual</option>
+              <option value="casual">Casual</option>
+              <option value="maternity">Maternity</option>
+              <option value="nopay">No Pay</option>
             </select>
           </div>
 
@@ -88,27 +85,39 @@ function LeaveForm() {
               type="date"
               id="startDate"
               name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" // Add focus styles for better visibility
-              required
-            />
-          </div>
-
-          {/* Name Input Field */}
-          <div className="mb-3">
-            <label className="block text-gray-700 font-bold mb-1" htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
               required
+              value={leaveDetail.startDate}
+              onChange={(e) => setLeaveDetail({ ...leaveDetail, startDate: e.target.value })}
             />
           </div>
 
+          {/* Number of Days Input Field */}
+          <div className="mb-3">
+            <label className="block text-gray-700 font-bold mb-1" htmlFor="numDays">NUMBER OF DAYS</label>
+            <input
+              type="text"
+              id="numDays"
+              name="numDays"
+              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
+              required
+              value={leaveDetail.numDays}
+              onChange={(e) => setLeaveDetail({ ...leaveDetail, numDays: e.target.value })}
+            />
+          </div>
+
+          {/* Supervisor ID Input Field */}
+          <div className="mb-3">
+            <label className="block text-gray-700 font-bold mb-1" htmlFor="supervisorId">SUPERVISOR ID</label>
+            <input
+              type="text"
+              id="supervisorId"
+              name="supervisorId"
+              value={sup} // Supervisor ID should be read-only
+              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
+              readOnly
+            />
+          </div>
 
           {/* Submit Button */}
           <div className="text-center">
@@ -126,6 +135,4 @@ function LeaveForm() {
 }
 
 export default LeaveForm;
-
-
 

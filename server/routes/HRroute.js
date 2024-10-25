@@ -19,7 +19,7 @@
 
 import express from 'express';
 const router = express.Router();
-import { login, userdetails, maxleave, avlleave, viewinfoa, viewinfob, viewinfoc, flogout, selsup, addleavereq } from '../controllers/HRcontroller.js';
+import { login, userdetails, maxleave, avlleave, viewinfoa, viewinfob, viewinfoc, flogout, selsup, addleavereq, fetchleaves, approveleave } from '../controllers/HRcontroller.js';
 
 router.post('/login', login);
 router.get('/userprofile/:userId', userdetails);
@@ -31,5 +31,7 @@ router.get('/viewinfoc/:ID', viewinfoc);
 router.get('/logout', flogout);
 router.get('/selsupervisor/:EmployeeId', selsup);
 router.post('/addleavereq/:EmployeeId', addleavereq);
+router.get('/leaves/:supID',fetchleaves);
+router.put('/approveleave/:id',approveleave);
 
 export { router as HRrouter };

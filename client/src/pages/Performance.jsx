@@ -1,12 +1,3 @@
-// import React from 'react'
-
-// const Performance = () => {
-//   return (
-//     <div>Performance</div>
-//   )
-// }
-
-// export default Performance
 
 import React from 'react';
 import { Bar } from 'react-chartjs-2'; // Assuming you're using Chart.js for the graph

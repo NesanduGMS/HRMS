@@ -135,25 +135,6 @@ export const selsup = (req, res) => {
   };
 
 
-
-// export const addleavereq = (req,res)=>{
-//     const values =[
-//         req.params.EmployeeId,
-//         req.body.leaveType,
-//         req.body.startDate,
-//         req.body.numDays,
-//         req.body.supervisorId,
-//         0,
-//     ]
-//     const sql = "INSERT INTO Leave_Request (`Employee_Id`,`Leave_Type`,`Start_Date`,`Time_Period_Days`,`Supervisor_Id`,`Approval_Status`) VALUES (?)";
-//     db.query(sql,values,(err,result)=>{
-//         if(err){
-//             console.log(err);
-//             return res.json({Status:false,Error:'query error'});}
-//         res.json({Status:true});    
-//     })
-// }
-
 export const addleavereq = (req, res) => {
     const values = [
         req.params.EmployeeId,
@@ -175,3 +156,26 @@ export const addleavereq = (req, res) => {
     });
 }
 
+
+
+export const fetchleaves = (req, res) => {
+    const sql = "SELECT * FROM Leave_Request WHERE Supervisor_Id = ?";
+    db.query(sql,req.params.supID, (err, result) => {
+      if (err) return res.json({ Status: false, Error: 'Query error' });
+      if (result.length > 0) {
+        return res.json({ Status: true, Result: result }); // Send all leave requests
+      } else {
+        return res.json({ Status: false, Error: "No Data found" });
+      }
+    });
+  };
+
+
+export const approveleave = (req, res) => {
+    const sql = "UPDATE Leave_Request SET Approval_Status = 1 WHERE Request_Id = ?";
+    db.query(sql, [req.params.id], (err, result) => {
+      if (err) return res.json({ Status: false, Error: 'Query error' });
+      return res.json({ Status: true, Message: 'Leave request approved' });
+    });
+  };
+  

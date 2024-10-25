@@ -1,61 +1,71 @@
 .add-employee-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f0f8ff; /* Light blue background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-title {
-    text-align: center;
-    color: #004080; /* Darker blue for title */
-    margin-bottom: 20px;
-  }
-  
-  .employee-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-input {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #007bff; /* Blue border */
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: #ffffff; /* White background for inputs */
-    color: #333; /* Dark text color */
-  }
-  
-  .form-input:focus {
-    border-color: #0056b3; /* Darker blue on focus */
-    outline: none;
-  }
-  
-  .form-label {
-    margin-bottom: 5px;
-    color: #004080; /* Darker blue for label */
-    font-weight: bold;
-  }
-  
-  .marital-status-label {
-    margin-bottom: 15px;
-    color: #004080; /* Darker blue for label */
-  }
-  
-  .submit-button {
-    padding: 10px;
-    background-color: #007bff; /* Blue button */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f0f8ff; /* Light blue background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  text-align: center;
+  color: #004080; /* Darker blue for title */
+  margin-bottom: 20px;
+}
+
+.employee-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #007bff; /* Blue border */
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #ffffff; /* White background for inputs */
+  color: #333; /* Dark text color */
+}
+
+.form-input:focus {
+  border-color: #0056b3; /* Darker blue on focus */
+  outline: none;
+}
+
+.form-label {
+  margin-bottom: 5px;
+  color: #004080; /* Darker blue for label */
+  font-weight: bold;
+}
+
+.marital-status-label {
+  margin-bottom: 15px;
+  color: #004080; /* Darker blue for label */
+}
+
+.submit-button {
+  padding: 10px;
+  background-color: #007bff; /* Blue button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.section-title {
+  font-size: 1.8rem; /* Make the text larger */
+  font-weight: bold; /* Bold text */
+  color: #0056b3; /* Highlight color */
+  background-color: #f0f8ff; /* Light background for emphasis */
+  padding: 10px;
+  text-align: center; /* Center the title */
+  border-radius: 5px; /* Rounded corners */
+  margin-bottom: 20px;
+}

@@ -1,0 +1,64 @@
+.employee-table-page {
+    margin: 20px;
+  }
+  
+  .employee-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between each label */
+  }
+  
+  .employee-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+  }
+  
+  .employee-form input[type="text"],
+  .employee-form input[type="email"],
+  .employee-form input[type="date"],
+  .employee-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Light background color */
+    transition: border-color 0.3s;
+  }
+  
+  .employee-form input[type="text"]:focus,
+  .employee-form input[type="email"]:focus,
+  .employee-form input[type="date"]:focus,
+  .employee-form select:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none;
+  }
+  
+  /* Placeholder styles */
+  .employee-form input[type="text"]::placeholder,
+  .employee-form input[type="email"]::placeholder,
+  .employee-form input[type="date"]::placeholder {
+    color: #aaa; /* Light color for placeholder */
+  }
+  
+  /* Ensure empty fields maintain light background */
+  .employee-form input[type="text"]:placeholder-shown,
+  .employee-form input[type="email"]:placeholder-shown,
+  .employee-form input[type="date"]:placeholder-shown {
+    background-color: #f9f9f9; /* Maintain light background */
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  

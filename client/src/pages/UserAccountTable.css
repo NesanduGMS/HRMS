@@ -1,0 +1,133 @@
+/* Style for the User Account page */
+.user-account-page {
+    margin: 20px;
+  }
+  
+  /* Table styling */
+  .user-account-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .user-account-table h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .user-account-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .user-account-table th,
+  .user-account-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .user-account-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .user-account-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .user-account-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .user-account-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .user-account-table td {
+    padding: 12px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    .user-account-table table,
+    .user-account-table th,
+    .user-account-table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .user-account-table th,
+    .user-account-table td {
+      box-sizing: border-box;
+    }
+  
+    .user-account-table th {
+      background-color: #007bff;
+      color: white;
+      text-align: left;
+    }
+  
+    .user-account-table td {
+      border: none;
+      border-bottom: 1px solid #ddd;
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+  
+    .user-account-table td:before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+  }
+  
+  /* Button styling */
+  button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Add user account form styling */
+  .add-user-account {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .add-user-account input,
+  .add-user-account select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+  }
+  
+  .add-user-account input:focus,
+  .add-user-account select:focus {
+    border-color: #007bff;
+  }

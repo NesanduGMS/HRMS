@@ -17,11 +17,15 @@ export const addEmployeeDetails = async (req, res) => {
     supervisorDetails: { Supervisor_Id }
   } = req.body;
 
+  // Format Recruitment_Date to remove the time part
+  const formattedRecruitmentDate = new Date(Recruitment_Date).toISOString().split('T')[0];
+  const formattedDateOfBirth = new Date(Date_Of_Birth).toISOString().split('T')[0];
+
   try {
     await query(`
       INSERT INTO Employee (First_Name, Last_Name, Full_Name, Recruitment_Date, Date_Of_Birth, Gender, Marital_Status, Personal_Email, Country, Address) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [First_Name, Last_Name, Full_Name, Recruitment_Date, Date_Of_Birth, Gender, Marital_Status, Personal_Email, Country, Address]
+      [First_Name, Last_Name, Full_Name, formattedRecruitmentDate, formattedDateOfBirth, Gender, Marital_Status, Personal_Email, Country, Address]
     );
 
     const Employee_Id_Result = await query(`SELECT MAX(Employee_Id) AS Employee_Id FROM Employee`);

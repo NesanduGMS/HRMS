@@ -81,11 +81,13 @@ const AddEmployeePage = () => {
 
     try {
       const response = await axios.post('http://localhost:3005/api/employees/addEmployeeDetails', employeeDetails);
-      alert('Employee details added successfully!');
+      const { message, Employee_Id } = response.data;
+      alert(`${message} The new Employee ID is ${Employee_Id}`);
     } catch (error) {
-      console.error('Error adding employee details:', error);
+      console.error('Error adding employee details:', error.response ? error.response.data : error.message);
     }
   };
+
 
   return (
     <div className="add-employee-container">

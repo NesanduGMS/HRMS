@@ -1,0 +1,111 @@
+/* Style for the Employee Contact Info Table page */
+.employee-contact-info-page {
+    margin: 20px;
+  }
+  
+  /* Table styling */
+  .employee-contact-info-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .employee-contact-info-table h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .employee-contact-info-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .employee-contact-info-table th,
+  .employee-contact-info-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .employee-contact-info-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .employee-contact-info-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .employee-contact-info-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .employee-contact-info-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .employee-contact-info-table td {
+    padding: 12px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    .employee-contact-info-table table,
+    .employee-contact-info-table th,
+    .employee-contact-info-table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .employee-contact-info-table th,
+    .employee-contact-info-table td {
+      box-sizing: border-box;
+    }
+  
+    .employee-contact-info-table th {
+      background-color: #007bff;
+      color: white;
+      text-align: left;
+    }
+  
+    .employee-contact-info-table td {
+      border: none;
+      border-bottom: 1px solid #ddd;
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+  
+    .employee-contact-info-table td:before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+  }
+  
+  /* Button styling */
+  button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }

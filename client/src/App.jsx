@@ -13,24 +13,24 @@ import Leaveappeal from "./pages/Leaveappeal";
 import Manageemployee from "./pages/Manageemployee";
 import Applyleave from "./pages/Applyleave";
 import Viewpersonalinfo from "./pages/Viewpersonalinfo";
-import AddEmployeePage from "./pages/AddEmployeePage"; // Import AddEmployeePage
+import AddEmployeePage from "./pages/AddEmployeePage";
+import EmployeeTablePage from "./pages/EmployeeTablePage";
+import AvailableLeavesTable from "./pages/AvailableLeavesTable";
+import ProfessionalDetailsTable from "./pages/ProfessionalDetailsTable";
+import EmployeeContactInfoTable from "./pages/EmployeeContactInfoTable";
+import EmergencyInformationTable from "./pages/EmergencyInformationTable";
+import UserAccountTable from "./pages/UserAccountTable"; 
 
 const App = () => {
   const location = useLocation();
-
-  // Check if the current path starts with '/dashboard' (for dashboard and all its subroutes)
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
     <div>
-      {/* Conditionally render Header only if not on /dashboard */} 
       {!isDashboard && <Header />}
-
-      {/* Render other routes */}
       <div className="flex-grow">
         <Routes>
           <Route path="/dashboard" element={<Dashboard />}>
-            {/* Include userId as a route parameter */}
             <Route path="profile" element={<Profile />} />
             <Route path="performance" element={<Performance />} />
             <Route path="leaveinfo" element={<Leaveinfo />} />
@@ -38,7 +38,13 @@ const App = () => {
             <Route path="manageemployee" element={<Manageemployee />} />
             <Route path="applyleave" element={<Applyleave />} />
             <Route path="personalinfo" element={<Viewpersonalinfo />} />
-            <Route path="addemployee" element={<AddEmployeePage />} /> {/* Add this route */}
+            <Route path="addemployee" element={<AddEmployeePage />} />
+            <Route path="edit-employee/:employeeId/personal-details" element={<EmployeeTablePage />} />
+            <Route path="edit-employee/:employeeId/available-leaves" element={<AvailableLeavesTable />} />
+            <Route path="edit-employee/:employeeId/professional-details" element={<ProfessionalDetailsTable />} />
+            <Route path="edit-employee/:employeeId/contact-info" element={<EmployeeContactInfoTable />} />
+            <Route path="edit-employee/:employeeId/emergency-info" element={<EmergencyInformationTable />} />
+            <Route path="edit-employee/:employeeId/user-account" element={<UserAccountTable />} /> 
           </Route>
           <Route path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />

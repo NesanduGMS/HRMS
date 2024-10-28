@@ -1,0 +1,88 @@
+/* General Heading Styles */
+h2 {
+    font-family: 'Arial', sans-serif; /* Change to a clean font */
+    font-size: 2rem; /* Increase font size */
+    text-align: center; /* Center the heading */
+    margin-bottom: 1rem; /* Space below the heading */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); /* Subtle text shadow for depth */
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background-color: white; /* White background for the dashboard header */
+    padding: 1rem; /* Padding for the header */
+}
+
+.dashboard-header h2 {
+    color: black; /* Black text for the dashboard title */
+}
+
+/* Fetch Total Leaves Header */
+.leaves-section {
+    padding: 1rem; /* Padding for the leaves section */
+}
+
+.leaves-section h2 {
+    color: black; /* Black text for the Fetch Total Leaves header */
+}
+
+/* Input Fields and Buttons */
+select,
+input[type="date"],
+button {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for input fields */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Light border for a polished look */
+    border-radius: 5px; /* Rounded corners for input fields */
+    padding: 0.5rem; /* Padding for better spacing */
+    font-size: 1rem; /* Standardize font size */
+    transition: box-shadow 0.3s ease; /* Transition effect for focus */
+}
+
+/* Button Styles */
+button {
+    background-color: rgba(0, 123, 255, 0.8); /* Button background color */
+    color: white;
+    font-weight: bold; /* Make button text bold */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background and scale on hover */
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: rgba(0, 123, 255, 1); /* Hover effect for buttons */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+/* Customize Date Input Fields */
+.custom-date-input {
+    background-color: white;
+    color: #000; /* Black text for input fields */
+    position: relative;
+    border-radius: 5px; /* Rounded corners for date inputs */
+    padding: 0.5rem; /* Padding for spacing */
+}
+
+/* Calendar Picker Icon */
+.custom-date-input::-webkit-calendar-picker-indicator {
+    color: black;
+    filter: invert(100%); /* Black calendar icon */
+}
+
+/* Focus Styles for Inputs */
+select:focus,
+input[type="date"]:focus,
+button:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue shadow on focus */
+}
+
+/* Additional styles for improved layout */
+form {
+    max-width: 500px; /* Centering form */
+    margin: 0 auto; /* Center form on page */
+    padding: 2rem; /* Padding for form */
+    border-radius: 10px; /* Rounded corners for form */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly opaque white background for the form */
+}

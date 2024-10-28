@@ -1,8 +1,10 @@
 import db from '../utils/db.js';
 import util from 'util';
+import bcrypt from 'bcrypt';
 
 // Promisify the query method of the database connection
 const query = util.promisify(db.query).bind(db);
+
 
 //EmployeeTablePage.jsx:
 // Controller to get employee data for a specific employee ID
@@ -83,6 +85,8 @@ export const updateAvailableLeaves = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 
 //ProfessionalDetailsTable.jsx:
 export const getProfessionalDetails = async (req, res) => {
@@ -167,6 +171,8 @@ export const addEmployeeContactInfo = async (req, res) => {
   }
 };
 
+
+
 // EmergencyInformationTable.jsx:
 export const getEmergencyInfo = async (req, res) => {
   const { employeeId } = req.params;
@@ -238,8 +244,12 @@ export const addUserAccount = async (req, res) => {
   const { userId, employeeId, password, role } = req.body;
 
   try {
+    // Hash the password with bcrypt
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds for hashing
+
+    // SQL query to insert user data with the hashed password
     const sql = 'INSERT INTO User_Account (User_Id, Employee_Id, User_Password, Role) VALUES (?, ?, ?, ?)';
-    await query(sql, [userId, employeeId, password, role]);
+    await query(sql, [userId, employeeId, hashedPassword, role]);
 
     res.status(201).json({ User_Id: userId, Employee_Id: employeeId, Role: role });
   } catch (error) {

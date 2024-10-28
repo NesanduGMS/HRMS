@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import { FaUser, FaInfoCircle, FaFileAlt, FaUsers, FaChartLine, FaClipboard, FaBuilding, FaLeaf, FaIdBadge, FaColumns } from 'react-icons/fa'; // Added icons for sub-items
@@ -7,6 +8,7 @@ const Dashboard = () => {
   axios.defaults.withCredentials = true;
   const location = useLocation(); // Get the current location
   const currentPath = location.pathname; // Get the current pathname
+  const navigate = useNavigate(); // For redirecting after logout
 
   const [isReportOpen, setIsReportOpen] = useState(false); // State to toggle Report sub-items
 
@@ -19,6 +21,7 @@ const Dashboard = () => {
     { name: 'Report', icon: <FaClipboard />, path: '#', onClick: () => setIsReportOpen(!isReportOpen) }, // Toggle report sub-items
   ];
 
+
   // Report sub-items (these will show when the Reports button is clicked)
   const reportSubItems = [
     { name: 'Department', icon: <FaBuilding />, path: '/dashboard/report/department' },
@@ -26,6 +29,19 @@ const Dashboard = () => {
     { name: 'Employee', icon: <FaIdBadge />, path: '/dashboard/report/employee' },
     { name: 'Custom Fields', icon: <FaColumns />, path: '/dashboard/report/customfields' },
   ];
+
+  const handleLogout = () => {
+    // Example: make API call to log out
+    axios.get('http://localhost:3005/auth/logout')
+    .then((result) => {
+     if(result.data.Status){
+      navigate('/logout')
+     };
+    }).catch(err => {
+      console.error("Logout failed", err);
+    });
+  };
+
 
   return (
     <div className="min-h-screen flex">
@@ -51,6 +67,7 @@ const Dashboard = () => {
             </Link>
           ))}
 
+
           {/* Show report sub-items if Report is clicked */}
           {isReportOpen && (
             <div className="ml-6 space-y-2">
@@ -70,6 +87,16 @@ const Dashboard = () => {
               ))}
             </div>
           )}
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center w-full p-4 mt-auto text-left bg-red-600 hover:bg-red-700 transition-colors rounded-lg"
+          >
+            <FaSignOutAlt className="mr-3 text-xl text-white" />
+            <span className="text-white">Logout</span>
+          </button>
+
         </nav>
       </div>
 

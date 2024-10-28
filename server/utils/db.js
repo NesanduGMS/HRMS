@@ -20,5 +20,6 @@ const db = mysql.createPool({
       console.log('Connected to MySQL');
     }
   });
+
 db.query = promisify(db.query);
 export default db;

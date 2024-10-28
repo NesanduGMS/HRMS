@@ -46,6 +46,7 @@ const App = () => {
             <Route path="report/customfields" element={<CustomFields />} /> {/* Route for Custom Fields */}
           </Route>
           <Route path="/" element={<Home />} />
+          <Route path="/logout" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/leaveform" element={<Leaveform />} />

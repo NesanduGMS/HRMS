@@ -179,3 +179,46 @@ export const approveleave = (req, res) => {
     });
   };
   
+
+export const getPerformance = (req,res)=>{
+    const sql = "SELECT * FROM Past_Job_Positions WHERE Employee_Id = ?";
+    db.query(sql,[req.params.UID],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+}  
+
+
+
+export const workinfo = (req,res)=>{
+    const sql = "SELECT * FROM Employee_Work_Details WHERE Employee_Id = ?";
+    db.query(sql,[req.params.UID],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+}  
+
+
+
+export const coninfo = (req,res)=>{
+    const sql = "SELECT * FROM SectionBranchLanView WHERE Employee_Id = 'S001'";
+    db.query(sql,(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+}  

@@ -17,8 +17,6 @@ export const login = (req,res)=>{
         }
 
     })
-
-
 }
 
 export const userdetails = (req,res)=>{
@@ -86,7 +84,6 @@ export const viewinfoa = (req,res)=>{
 
 }
 
-
 export const viewinfob = (req,res)=>{
     const sql = "SELECT * FROM Emergency_Information WHERE Employee_Id = ?";
     db.query(sql,[req.params.ID],(err,result)=>{
@@ -95,7 +92,7 @@ export const viewinfob = (req,res)=>{
             return res.json({Status:true,Result:result[0]});
         }
         else{
-            return res.json({Error:"No Data found"});
+            return res.json({Error:"No Data found"})
         }
     })
 }
@@ -114,3 +111,114 @@ export const viewinfoc = (req,res)=>{
         }
     })
 }
+
+
+
+export const flogout = (req,res)=>{
+    res.clearCookie('token');
+    return res.json({Status: true});
+
+}
+
+
+
+export const selsup = (req, res) => {
+    const sql = "SELECT * FROM Supervisor WHERE Employee_Id = ?";
+    db.query(sql, [req.params.EmployeeId], (err, result) => {
+      if (err) return res.json({ Status: false, Error: 'Query error' });
+      if (result.length > 0) {
+        return res.json({ Status: true, Result: result[0] }); // Send the first result (Supervisor data)
+      } else {
+        return res.json({ Status: false, Error: "No Data found" });
+      }
+    });
+  };
+
+
+export const addleavereq = (req, res) => {
+    const values = [
+        req.params.EmployeeId,
+        req.body.leaveType,
+        req.body.startDate,
+        req.body.numDays,
+        req.body.supervisorId,
+        0, // Assuming 0 is the default approval status
+    ];
+    
+    const sql = "INSERT INTO Leave_Request (`Employee_Id`, `Leave_Type`, `Start_Date`, `Time_Period_Days`, `Supervisor_Id`, `Approval_Status`) VALUES (?)";
+    
+    db.query(sql, [values], (err, result) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ Status: false, Error: 'Internal server error' });
+        }
+        res.status(201).json({ Status: true, Message: 'Leave request added successfully' });
+    });
+}
+
+
+
+export const fetchleaves = (req, res) => {
+    const sql = "SELECT * FROM Leave_Request WHERE Supervisor_Id = ?";
+    db.query(sql,req.params.supID, (err, result) => {
+      if (err) return res.json({ Status: false, Error: 'Query error' });
+      if (result.length > 0) {
+        return res.json({ Status: true, Result: result }); // Send all leave requests
+      } else {
+        return res.json({ Status: false, Error: "No Data found" });
+      }
+    });
+  };
+
+
+export const approveleave = (req, res) => {
+    const sql = "UPDATE Leave_Request SET Approval_Status = 1 WHERE Request_Id = ?";
+    db.query(sql, [req.params.id], (err, result) => {
+      if (err) return res.json({ Status: false, Error: 'Query error' });
+      return res.json({ Status: true, Message: 'Leave request approved' });
+    });
+  };
+  
+
+export const getPerformance = (req,res)=>{
+    const sql = "SELECT * FROM Past_Job_Positions WHERE Employee_Id = ?";
+    db.query(sql,[req.params.UID],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+}  
+
+
+
+export const workinfo = (req,res)=>{
+    const sql = "SELECT * FROM Employee_Work_Details WHERE Employee_Id = ?";
+    db.query(sql,[req.params.UID],(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+}  
+
+
+
+export const coninfo = (req,res)=>{
+    const sql = "SELECT * FROM SectionBranchLanView WHERE Employee_Id = 'S001'";
+    db.query(sql,(err,result)=>{
+        if(err)return res.json({Status:false,Error:'query error'});
+        if(result.length>0){
+            return res.json({Status:true,Result:result});
+        }
+        else{
+            return res.json({Error:"No Data found"});
+        }
+    })
+}  

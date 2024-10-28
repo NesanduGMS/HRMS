@@ -7,4 +7,4 @@ const Applyleave = () => {
   )
 }
 
-export default Applyleave
+export default Applyleave;

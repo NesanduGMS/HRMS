@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import AboutUs from "./pages/Aboutus";
 import Contact from "./pages/Contact";
-import Reports from "./pages/Reports";
 import Leaveform from "./pages/Leaveform";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
@@ -20,11 +19,15 @@ import ProfessionalDetailsTable from "./pages/ProfessionalDetailsTable";
 import EmployeeContactInfoTable from "./pages/EmployeeContactInfoTable";
 import EmergencyInformationTable from "./pages/EmergencyInformationTable";
 import UserAccountTable from "./pages/UserAccountTable"; 
+import Department from "./pages/reports/Department"; // Importing the Department component
+import Leaves from "./pages/reports/Leaves"; // Importing the Leaves component
+import Employee from "./pages/reports/Employee"; // Importing the Employee component
+import CustomFields from "./pages/reports/CustomFields"; // Importing the Custom Fields component
 
 const App = () => {
   const location = useLocation();
+  // Check if the current path starts with '/dashboard' (for dashboard and all its subroutes)
   const isDashboard = location.pathname.startsWith("/dashboard");
-
   return (
     <div>
       {!isDashboard && <Header />}
@@ -38,6 +41,7 @@ const App = () => {
             <Route path="manageemployee" element={<Manageemployee />} />
             <Route path="applyleave" element={<Applyleave />} />
             <Route path="personalinfo" element={<Viewpersonalinfo />} />
+
             <Route path="addemployee" element={<AddEmployeePage />} />
             <Route path="edit-employee/:employeeId/personal-details" element={<EmployeeTablePage />} />
             <Route path="edit-employee/:employeeId/available-leaves" element={<AvailableLeavesTable />} />
@@ -45,12 +49,17 @@ const App = () => {
             <Route path="edit-employee/:employeeId/contact-info" element={<EmployeeContactInfoTable />} />
             <Route path="edit-employee/:employeeId/emergency-info" element={<EmergencyInformationTable />} />
             <Route path="edit-employee/:employeeId/user-account" element={<UserAccountTable />} /> 
+
+            <Route path="report/department" element={<Department />} /> {/* Route for Department */}
+            <Route path="report/leaves" element={<Leaves />} /> {/* Route for Leaves */}
+            <Route path="report/employee" element={<Employee />} /> {/* Route for Employee */}
+            <Route path="report/customfields" element={<CustomFields />} /> {/* Route for Custom Fields */}
           </Route>
           <Route path="/" element={<Home />} />
+          <Route path="/logout" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/leaveform" element={<Leaveform />} />
-          <Route path="/report" element={<Reports />} />
         </Routes>
       </div>
     </div>

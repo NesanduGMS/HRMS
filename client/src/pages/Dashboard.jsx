@@ -1,8 +1,8 @@
 
 import axios from 'axios';
 import React, { useState } from 'react';
-import { FaUser, FaInfoCircle, FaFileAlt, FaUsers, FaChartLine, FaClipboard, FaBuilding, FaLeaf, FaIdBadge, FaColumns } from 'react-icons/fa'; // Added icons for sub-items
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { FaUser, FaInfoCircle, FaFileAlt, FaUsers, FaChartLine, FaClipboard, FaBuilding, FaLeaf, FaIdBadge, FaColumns, FaSignOutAlt } from 'react-icons/fa'; // Added icons for sub-items
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   axios.defaults.withCredentials = true;

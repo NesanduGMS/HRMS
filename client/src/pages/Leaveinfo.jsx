@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 
 const Leaveinfo = () => {
   const userId = localStorage.getItem('ID');
-
-  const [leaveData, setLeaveData] = useState(null); // Initialize as null
-  const [avlleave, setavlleave] = useState(null);   // Initialize as null
+  const [leaveData, setLeaveData] = useState(null);
+  const [avlleave, setavlleave] = useState(null);
 
   useEffect(() => {
     axios.get(`http://localhost:3005/auth/maxleaves/${userId}`)
@@ -27,7 +26,6 @@ const Leaveinfo = () => {
       .then((result) => {
         if (result.data.Status) {
           setavlleave(result.data.Result);
-          console.log(result.data.Result);
         } else {
           alert(result.data.Error);
         }
@@ -37,66 +35,41 @@ const Leaveinfo = () => {
       });
   }, [userId]);
 
-  // Check if leaveData or avlleave is not yet loaded
   if (!leaveData || !avlleave) {
-    return <div>Loading...</div>;
+    return <div className="text-white text-2xl flex items-center justify-center min-h-screen">Loading...</div>;
   }
 
   return (
-    <div className="flex flex-col items-center p-4 relative">
-      <h1 className="text-2xl font-bold mb-6 text-center">Leave Information</h1>
-      <div className="grid grid-cols-2 gap-4 mb-16">
-        {/* Card 1 */}
-        <div className="bg-white shadow-lg rounded-lg flex flex-col justify-between items-center p-6 h-64 w-64 transition-transform transform hover:scale-105">
-          <h2 className="text-lg font-semibold">NO PAY LEAVE</h2>
-          <div>
-            <p className="text-gray-600">Entitlement: {leaveData.No_Pay_Leave_Count ?? 'N/A'} days</p>
-            <p className="text-gray-600">Used: {leaveData.No_Pay_Leave_Count - avlleave.No_Pay_Leaves ?? 'N/A'}  days</p>
-            <p className="text-gray-600">Remaining:{avlleave.No_Pay_Leaves ?? 'N/A'} days</p>
+    <div className="flex flex-col items-center bg-gradient-to-b from-[#17153B] to-[#433D8B] min-h-screen p-6">
+      <h1 className="text-4xl font-extrabold text-[#C8ACD6] mb-10">Leave Information</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 w-full max-w-5xl">
+        
+        {/* Card Component */}
+        {[
+          { title: 'NO PAY LEAVE', entitlement: leaveData.No_Pay_Leave_Count, used: leaveData.No_Pay_Leave_Count - avlleave.No_Pay_Leaves, remaining: avlleave.No_Pay_Leaves },
+          { title: 'CASUAL LEAVE', entitlement: leaveData.Casual_Leave_Count, used: leaveData.Casual_Leave_Count - avlleave.Casual_Leaves, remaining: avlleave.Casual_Leaves },
+          { title: 'ANNUAL LEAVE', entitlement: leaveData.Annual_Leave_Count, used: leaveData.Annual_Leave_Count - avlleave.Annual_Leaves, remaining: avlleave.Annual_Leaves },
+          { title: 'MATERNITY LEAVE', entitlement: leaveData.Maternity_Leave_Count, used: leaveData.Maternity_Leave_Count - avlleave.Maternity_Leaves, remaining: avlleave.Maternity_Leaves, unit: 'weeks' },
+        ].map((leave, index) => (
+          <div key={index} className="bg-[#2E236C] bg-opacity-80 rounded-lg h-72 w-full p-6 flex flex-col justify-between shadow-lg hover:shadow-xl hover:scale-105 transition transform duration-300">
+            <h2 className="text-xl font-semibold text-[#C8ACD6]">{leave.title}</h2>
+            <div className="space-y-2 text-white text-sm">
+              <p>Entitlement: {leave.entitlement ?? 'N/A'} {leave.unit || 'days'}</p>
+              <p>Used: {leave.used ?? 'N/A'} {leave.unit || 'days'}</p>
+              <p>Remaining: {leave.remaining ?? 'N/A'} {leave.unit || 'days'}</p>
+            </div>
           </div>
-        </div>
-
-        {/* Card 2 */}
-        <div className="bg-white shadow-lg rounded-lg flex flex-col justify-between items-center p-6 h-64 w-64 transition-transform transform hover:scale-105">
-          <h2 className="text-lg font-semibold">CASUAL LEAVE</h2>
-          <div>
-            <p className="text-gray-600">Entitlement: {leaveData.Casual_Leave_Count ?? 'N/A'} days</p>
-            <p className="text-gray-600">Used: {leaveData.Casual_Leave_Count - avlleave.Casual_Leaves ?? 'N/A'} days</p>
-            <p className="text-gray-600">Remaining: {avlleave.Casual_Leaves ?? 'N/A'} days</p>
-          </div>
-        </div>
-
-        {/* Card 3 */}
-        <div className="bg-white shadow-lg rounded-lg flex flex-col justify-between items-center p-6 h-64 w-64 transition-transform transform hover:scale-105">
-          <h2 className="text-lg font-semibold">ANNUAL LEAVE</h2>
-          <div>
-            <p className="text-gray-600">Entitlement: {leaveData.Annual_Leave_Count ?? 'N/A'} days</p>
-            <p className="text-gray-600">Used: {leaveData.Annual_Leave_Count - avlleave.Annual_Leaves ?? 'N/A'} days</p>
-            <p className="text-gray-600">Remaining: {avlleave.Annual_Leaves ?? 'N/A'} days</p>
-          </div>
-        </div>
-
-        {/* Card 4 */}
-        <div className="bg-white shadow-lg rounded-lg flex flex-col justify-between items-center p-6 h-64 w-64 transition-transform transform hover:scale-105">
-          <h2 className="text-lg font-semibold">MATERNITY LEAVE</h2>
-          <div>
-            <p className="text-gray-600">Entitlement: {leaveData.Maternity_Leave_Count ?? 'N/A'} weeks</p>
-            <p className="text-gray-600">Used: {leaveData.Maternity_Leave_Count - avlleave.Maternity_Leaves ?? 'N/A'} weeks</p>
-            <p className="text-gray-600">Remaining: {avlleave.Maternity_Leaves ?? 'N/A'} weeks</p>
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* Apply Leave Button */}
-      <Link to={'/dashboard/applyleave'}>
-      <button className="absolute bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-        APPLY A LEAVE
-      </button>
+      <Link to="/dashboard/applyleave">
+        <button className="mt-12 bg-[#433D8B] hover:bg-[#2E236C] text-white px-8 py-4 rounded-lg font-bold transition duration-200 shadow-md hover:shadow-lg">
+          APPLY FOR LEAVE
+        </button>
       </Link>
-
     </div>
   );
 };
 
 export default Leaveinfo;
-

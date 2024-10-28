@@ -19,83 +19,80 @@ const Manageemployee = () => {
     navigate(`/dashboard/edit-employee/${employeeId}/${section}`);
   };
 
-  const handleUserAccount = () => {
-    navigate(`/dashboard/user-account/${employeeId}`);
-  };
-
   return (
-    <div>
-      <h2>Manage Employees</h2>
-      <button
-        onClick={handleAddEmployee}
-        style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
-      >
-        Add Employee
-      </button>
-
-      <button
-        onClick={handleEditEmployee}
-        style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
-      >
-        View & Edit Employee
-      </button>
+    <div className="min-h-screen bg-[#17153B] p-8 text-white">
+      <h2 className="text-3xl font-bold mb-6 text-center">Manage Employees</h2>
+      <div className="flex justify-center gap-4 mb-8">
+        <button
+          onClick={handleAddEmployee}
+          className="bg-[#433D8B] text-white px-6 py-3 rounded-lg transition duration-200 hover:bg-[#2E236C]"
+        >
+          Add Employee
+        </button>
+        <button
+          onClick={handleEditEmployee}
+          className="bg-[#433D8B] text-white px-6 py-3 rounded-lg transition duration-200 hover:bg-[#2E236C]"
+        >
+          View & Edit Employee
+        </button>
+      </div>
 
       {showEditOptions && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Enter Employee ID:</h3>
+        <div className="flex flex-col items-center mt-6">
+          <h3 className="text-xl mb-4">Enter Employee ID:</h3>
           <input
             type="text"
             value={employeeId}
             onChange={(e) => setEmployeeId(e.target.value)}
             placeholder="Employee ID"
-            style={{ padding: '5px', margin: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+            className="p-2 mb-4 rounded-lg border border-[#C8ACD6] bg-[#17153B] text-white w-64"
           />
-          <div style={{ marginTop: '10px' }}>
+          <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => handleSectionNavigation('personal-details')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Employee Personal Details
             </button>
             <button
               onClick={() => handleSectionNavigation('contact-info')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Contact Information
             </button>
             <button
               onClick={() => handleSectionNavigation('available-leaves')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Available Leaves
             </button>
             <button
               onClick={() => handleSectionNavigation('professional-details')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Professional Details
             </button>
             <button
               onClick={() => handleSectionNavigation('past-job-position')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Past Job Position
             </button>
             <button
               onClick={() => handleSectionNavigation('emergency-info')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Emergency Information
             </button>
             <button
               onClick={() => handleSectionNavigation('supervisor-details')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Supervisor Details
             </button>
             <button
               onClick={() => handleSectionNavigation('user-account')}
-              style={{ backgroundColor: 'blue', color: 'white', padding: '10px', margin: '5px', borderRadius: '5px' }}
+              className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               User Account
             </button>

@@ -87,7 +87,7 @@ const CareerProgressionReport = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gradient-to-r from-[#17153B] to-[#433D8B]">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#17153B] to-[#433D8B]">
       <div className="container mx-auto p-6 max-w-md relative bg-white rounded-lg shadow-lg">
         <h2 className="text-4xl font-bold mb-6 text-center text-[#17153B]">Career Progression Report</h2>
 

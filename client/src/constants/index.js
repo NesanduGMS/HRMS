@@ -10,11 +10,11 @@ export const navigation = [
     url: "/aboutus",
   },
   
-  {
-    id: "2",
-    title: "Report",
-    url: "/report",
-  },
+  // {
+  //   id: "2",
+  //   title: "Report",
+  //   url: "/report",
+  // },
   {
     id: "3",
     title: "Leaveform",

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Employee.css'; // Import the custom CSS file
 
 const Employee = () => {
   const [departments, setDepartments] = useState([]);
@@ -69,108 +68,110 @@ const Employee = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-md relative">
-      <h2 className="text-3xl font-semibold mb-6 text-center">Fetch Employees</h2>
-      {loading && <p className="text-lg text-gray-700">Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#17153B] to-[#433D8B]"> {/* Added gradient background */}
+      <div className="p-6 max-w-lg bg-white rounded-lg shadow-lg">
+        <h2 className="text-4xl font-bold mb-6 text-center text-[#17153B]">Fetch Employees</h2>
+        {loading && <p className="text-lg text-gray-700">Loading...</p>}
+        {error && <p className="text-red-500">{error}</p>}
 
-      {/* Department Dropdown */}
-      <div className="mb-6">
-        <label htmlFor="department" className="block text-lg mb-2 font-medium">
-          Select Department:
-        </label>
-        <select
-          value={selectedDepartment}
-          onChange={(e) => setSelectedDepartment(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-md shadow-sm bg-white"
-        >
-          <option value="">Select a department</option>
-          {departments.map((department, index) => (
-            <option key={index} value={department}>
-              {department}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Pay Grade Dropdown */}
-      <div className="mb-6">
-        <label htmlFor="payGrade" className="block text-lg mb-2 font-medium">
-          Select Pay Grade:
-        </label>
-        <select
-          value={selectedPayGrade}
-          onChange={(e) => setSelectedPayGrade(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-md shadow-sm bg-white"
-        >
-          <option value="">Select a pay grade</option>
-          {payGrades.map((payGrade, index) => (
-            <option key={index} value={payGrade}>
-              {payGrade}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Job Title Dropdown */}
-      <div className="mb-6">
-        <label htmlFor="jobTitle" className="block text-lg mb-2 font-medium">
-          Select Job Title:
-        </label>
-        <select
-          value={selectedJobTitle}
-          onChange={(e) => setSelectedJobTitle(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-md shadow-sm bg-white"
-        >
-          <option value="">Select a job title</option>
-          {jobTitles.map((jobTitle, index) => (
-            <option key={index} value={jobTitle}>
-              {jobTitle}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Submit Button */}
-      <button
-        onClick={handleSubmit}
-        className="w-full bg-blue-500 text-white font-bold py-2 rounded-md hover:bg-blue-400"
-      >
-        Fetch Employees
-      </button>
-
-      {/* Employee Results Table */}
-      {employees.length > 0 && (
-        <div className="mt-6">
-          <h3 className="text-2xl font-semibold">Employees:</h3>
-          <table className="min-w-full bg-white border border-gray-200 mt-4">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border-b">Employee ID</th>
-                <th className="py-2 px-4 border-b">Full Name</th>
-                <th className="py-2 px-4 border-b">Gender</th>
-                <th className="py-2 px-4 border-b">Country</th>
-                <th className="py-2 px-4 border-b">Job Title</th>
-                <th className="py-2 px-4 border-b">Pay Grade</th>
-                <th className="py-2 px-4 border-b">Work Section</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map((employee) => (
-                <tr key={employee.Employee_Id} className="text-center">
-                  <td className="py-2 px-4 border-b">{employee.Employee_Id}</td>
-                  <td className="py-2 px-4 border-b">{employee.Full_Name}</td>
-                  <td className="py-2 px-4 border-b">{employee.Gender}</td>
-                  <td className="py-2 px-4 border-b">{employee.Country}</td>
-                  <td className="py-2 px-4 border-b">{employee.Job_Title}</td>
-                  <td className="py-2 px-4 border-b">{employee.Pay_Grade}</td>
-                  <td className="py-2 px-4 border-b">{employee.Work_Section}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* Department Dropdown */}
+        <div className="mb-6">
+          <label htmlFor="department" className="block text-lg mb-2 font-medium text-[#2E236C]">
+            Select Department:
+          </label>
+          <select
+            value={selectedDepartment}
+            onChange={(e) => setSelectedDepartment(e.target.value)}
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-white"
+          >
+            <option value="">Select a department</option>
+            {departments.map((department, index) => (
+              <option key={index} value={department}>
+                {department}
+              </option>
+            ))}
+          </select>
         </div>
-      )}
+
+        {/* Pay Grade Dropdown */}
+        <div className="mb-6">
+          <label htmlFor="payGrade" className="block text-lg mb-2 font-medium text-[#2E236C]">
+            Select Pay Grade:
+          </label>
+          <select
+            value={selectedPayGrade}
+            onChange={(e) => setSelectedPayGrade(e.target.value)}
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-white"
+          >
+            <option value="">Select a pay grade</option>
+            {payGrades.map((payGrade, index) => (
+              <option key={index} value={payGrade}>
+                {payGrade}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Job Title Dropdown */}
+        <div className="mb-6">
+          <label htmlFor="jobTitle" className="block text-lg mb-2 font-medium text-[#2E236C]">
+            Select Job Title:
+          </label>
+          <select
+            value={selectedJobTitle}
+            onChange={(e) => setSelectedJobTitle(e.target.value)}
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-white"
+          >
+            <option value="">Select a job title</option>
+            {jobTitles.map((jobTitle, index) => (
+              <option key={index} value={jobTitle}>
+                {jobTitle}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-[#433D8B] text-white font-bold py-2 rounded-md hover:bg-[#2E236C]"
+        >
+          Fetch Employees
+        </button>
+
+        {/* Employee Results Table */}
+        {employees.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-3xl font-semibold text-[#17153B]">Employees:</h3>
+            <table className="min-w-full bg-white border border-gray-200 mt-4">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b text-[#2E236C]">Employee ID</th>
+                  <th className="py-2 px-4 border-b text-[#2E236C]">Full Name</th>
+                  <th className="py-2 px-4 border-b text-[#2E236C]">Gender</th>
+                  <th className="py-2 px-4 border-b text-[#2E236C]">Country</th>
+                  <th className="py-2 px-4 border-b text-[#2E236C]">Job Title</th>
+                  <th className="py-2 px-4 border-b text-[#2E236C]">Pay Grade</th>
+                  <th className="py-2 px-4 border-b text-[#2E236C]">Work Section</th>
+                </tr>
+              </thead>
+              <tbody>
+                {employees.map((employee) => (
+                  <tr key={employee.Employee_Id} className="text-center">
+                    <td className="py-2 px-4 border-b">{employee.Employee_Id}</td>
+                    <td className="py-2 px-4 border-b">{employee.Full_Name}</td>
+                    <td className="py-2 px-4 border-b">{employee.Gender}</td>
+                    <td className="py-2 px-4 border-b">{employee.Country}</td>
+                    <td className="py-2 px-4 border-b">{employee.Job_Title}</td>
+                    <td className="py-2 px-4 border-b">{employee.Pay_Grade}</td>
+                    <td className="py-2 px-4 border-b">{employee.Work_Section}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

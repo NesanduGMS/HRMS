@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -58,48 +57,37 @@ const Viewcard = () => {
   console.log(viewicon);
 
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden"> {/* Increased width to max-w-2xl */}
+    <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
       {/* Profile Picture */}
-      <div className="bg-gray-200 h-56 flex items-center justify-center"> {/* Increased height */}
+      <div className="bg-[#2E236C] h-56 flex items-center justify-center"> {/* Background color from the palette */}
         <img
           src="https://via.placeholder.com/150"
-          alt="John Doe"
-          className="h-40 w-40 rounded-full object-cover shadow-lg"
+          alt="Profile"
+          className="h-40 w-40 rounded-full object-cover shadow-lg border-4 border-[#C8ACD6]" // Border color from the palette
         />
       </div>
 
       {/* Person Information */}
-      <div className="p-8"> {/* Increased padding */}
+      <div className="p-8 bg-[#C8ACD6]"> {/* Background color from the palette */}
         {/* Name and Personal Details */}
         {viewinfo && (
           <>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">{viewinfo.Full_Name}</h2> {/* Increased font size */}
-            <p className="text-lg text-gray-600 mb-4">
+            <h2 className="text-3xl font-bold text-[#17153B] mb-4">{viewinfo.Full_Name}</h2> {/* Text color from the palette */}
+            <p className="text-lg text-[#433D8B] mb-4">
               <strong>Date of Birth:</strong> {new Date(viewinfo.Date_Of_Birth).toLocaleDateString()}
-            </p> {/* Formatted Date of Birth */}
-            <p className="text-lg text-gray-600 mb-4"><strong>Gender:</strong> {viewinfo.Gender}</p>
-            <p className="text-lg text-gray-600 mb-6">
+            </p>
+            <p className="text-lg text-[#433D8B] mb-4"><strong>Gender:</strong> {viewinfo.Gender}</p>
+            <p className="text-lg text-[#433D8B] mb-6">
               <strong>Recruitment Date:</strong> {new Date(viewinfo.Recruitment_Date).toLocaleDateString()}
-            </p> {/* Formatted Recruitment Date */}
+            </p>
 
             {/* Contact Info */}
-            <div className="text-gray-700 mb-6"> {/* Increased bottom margin */}
-              <h3 className="text-xl font-semibold mb-4">Contact Info</h3> {/* Increased font size and margin */}
-              <p className="mb-2"><strong>Personal Email:</strong> {viewinfo.Personal_Email}</p> {/* Added margin */}
+            <div className="text-[#17153B] mb-6">
+              <h3 className="text-xl font-semibold mb-4">Contact Info</h3>
+              <p className="mb-2"><strong>Personal Email:</strong> {viewinfo.Personal_Email}</p>
               <p className="mb-2"><strong>Country:</strong> {viewinfo.Country}</p>
               <p className="mb-2"><strong>Address:</strong> {viewinfo.Address}</p>
 
-              {/* Dynamically rendering Mobile Numbers */}
-              {/* <p className="mb-2"><strong>Mobile Numbers:</strong></p>
-              <ul className="list-disc list-inside pl-4">
-                {viewicon && viewicon.Employee_Mobile_Number && viewicon.Employee_Mobile_Number.length > 0 ? (
-                  viewicon.Employee_Mobile_Number.map((number, index) => (
-                    <li key={index}>{number}</li>
-                  ))
-                ) : (
-                  <li>No mobile numbers available</li>
-                )}
-              </ul> */}
               {/* Dynamically rendering Mobile Numbers */}
               <p className="mb-2"><strong>Mobile Numbers:</strong></p>
               <ul className="list-disc list-inside pl-4">
@@ -117,11 +105,11 @@ const Viewcard = () => {
 
         {/* Emergency Contact Info Card */}
         {viewiem && (
-          <div className="bg-gray-100 p-6 rounded-lg shadow-md"> {/* Card for emergency details */}
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Emergency Contact Info</h3> {/* Increased font size and margin */}
-            <p className="text-lg text-gray-600 mb-4"><strong>Dependant Name:</strong> {viewiem.Dependant_Name}</p>
-            <p className="text-lg text-gray-600 mb-4"><strong>Dependant Mobile Number:</strong> {viewiem.Dependant_Mobile_Number}</p>
-            <p className="text-lg text-gray-600 mb-2"><strong>Dependant Address:</strong> {viewiem.Dependant_Address}</p>
+          <div className="bg-[#17153B] p-6 rounded-lg shadow-md"> {/* Card background color from the palette */}
+            <h3 className="text-xl font-semibold text-[#C8ACD6] mb-4">Emergency Contact Info</h3> {/* Header color from the palette */}
+            <p className="text-lg text-[#C8ACD6] mb-4"><strong>Dependant Name:</strong> {viewiem.Dependant_Name}</p>
+            <p className="text-lg text-[#C8ACD6] mb-4"><strong>Dependant Mobile Number:</strong> {viewiem.Dependant_Mobile_Number}</p>
+            <p className="text-lg text-[#C8ACD6] mb-2"><strong>Dependant Address:</strong> {viewiem.Dependant_Address}</p>
           </div>
         )}
       </div>
@@ -130,9 +118,3 @@ const Viewcard = () => {
 };
 
 export default Viewcard;
-
-
-
-
-
-

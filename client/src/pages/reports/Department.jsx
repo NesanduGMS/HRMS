@@ -69,7 +69,6 @@ const Department = () => {
             departments: selectedDepartment,
           });
           setEmployees(response.data);
-          console.log('Employee Data:', response.data); // Log the data to inspect structure
         } catch (error) {
           setError('Error fetching employees. Please try again.');
         } finally {
@@ -99,74 +98,76 @@ const Department = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-md relative">
-      <h2 className="text-3xl font-semibold mb-6 text-center">Select Department</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#17153B] to-[#433D8B]">
+      <div className="container mx-auto p-6 max-w-md relative bg-white rounded-lg shadow-lg">
+        <h2 className="text-4xl font-bold mb-6 text-center text-[#17153B]">Select Department</h2>
 
-      {departmentLoading && <p className="text-lg text-gray-700">Loading departments...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+        {departmentLoading && <p className="text-lg text-gray-700">Loading departments...</p>}
+        {error && <p className="text-red-500">{error}</p>}
 
-      {!departmentLoading && !error && (
-        <div className="mb-6">
-          <label htmlFor="department" className="block text-lg mb-2 font-medium">
-            Choose a Department:
-          </label>
-          <div ref={dropdownRef}>
-            <div
-              onClick={handleToggleDropdown}
-              className="p-3 border border-gray-300 rounded-md cursor-pointer shadow-sm relative"
-            >
-              {selectedDepartment || 'Select a department'}
+        {!departmentLoading && !error && (
+          <div className="mb-6">
+            <label htmlFor="department" className="block text-lg mb-2 font-medium text-[#2E236C]">
+              Choose a Department:
+            </label>
+            <div ref={dropdownRef}>
+              <div
+                onClick={handleToggleDropdown}
+                className="p-3 border border-gray-300 rounded-md cursor-pointer shadow-sm relative"
+              >
+                {selectedDepartment || 'Select a department'}
+              </div>
+              <DepartmentDropdown
+                departments={departments}
+                onSelect={handleSelectDepartment}
+                isOpen={dropdownOpen}
+              />
             </div>
-            <DepartmentDropdown
-              departments={departments}
-              onSelect={handleSelectDepartment}
-              isOpen={dropdownOpen}
-            />
           </div>
-        </div>
-      )}
+        )}
 
-      <button
-        onClick={handleSubmit}
-        className="w-full bg-blue-600 text-white font-bold py-2 rounded-md hover:bg-blue-700"
-      >
-        Confirm Selection
-      </button>
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-[#433D8B] text-white font-bold py-2 rounded-md hover:bg-[#2E236C]"
+        >
+          Confirm Selection
+        </button>
 
-      {/* Display employee report */}
-      {employeesLoading && <p className="text-lg text-gray-700 mt-6">Loading employees...</p>}
-      {!employeesLoading && employees.length > 0 && (
-        <div className="mt-6">
-          <h3 className="text-2xl font-semibold">Employees in {selectedDepartment}:</h3>
-          <table className="min-w-full divide-y divide-gray-200 mt-2">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Employee ID</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Full Name</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Gender</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Country</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {employees.map((employee, index) => (
-                <tr key={index}>
-                  {/* Handle different possible key names for Employee ID */}
-                  <td className="px-4 py-2 text-sm text-gray-800">
-                    {employee.Employee_id || employee.employee_id || employee.Employee_Id || 'N/A'}
-                  </td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{employee.Full_Name}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{employee.Gender}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{employee.Country}</td>
+        {/* Display employee report */}
+        {employeesLoading && <p className="text-lg text-gray-700 mt-6">Loading employees...</p>}
+        {!employeesLoading && employees.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-3xl font-semibold text-[#17153B]">Employees in {selectedDepartment}:</h3>
+            <table className="min-w-full divide-y divide-gray-200 mt-2">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Employee ID</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Full Name</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Gender</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Country</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {employees.map((employee, index) => (
+                  <tr key={index}>
+                    {/* Handle different possible key names for Employee ID */}
+                    <td className="px-4 py-2 text-sm text-gray-800">
+                      {employee.Employee_id || employee.employee_id || employee.Employee_Id || 'N/A'}
+                    </td>
+                    <td className="px-4 py-2 text-sm text-gray-800">{employee.Full_Name}</td>
+                    <td className="px-4 py-2 text-sm text-gray-800">{employee.Gender}</td>
+                    <td className="px-4 py-2 text-sm text-gray-800">{employee.Country}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
-      {!employeesLoading && employees.length === 0 && !error && (
-        <p className="text-gray-700 mt-6">No employees found for {selectedDepartment}.</p>
-      )}
+        {!employeesLoading && employees.length === 0 && !error && (
+          <p className="text-gray-700 mt-6">No employees found for {selectedDepartment}.</p>
+        )}
+      </div>
     </div>
   );
 };

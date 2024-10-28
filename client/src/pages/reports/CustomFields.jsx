@@ -87,71 +87,73 @@ const CareerProgressionReport = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-md relative">
-      <h2 className="text-3xl font-semibold mb-6 text-center">Career Progression Report</h2>
+    <div className="flex items-center justify-center bg-gradient-to-r from-[#17153B] to-[#433D8B]">
+      <div className="container mx-auto p-6 max-w-md relative bg-white rounded-lg shadow-lg">
+        <h2 className="text-4xl font-bold mb-6 text-center text-[#17153B]">Career Progression Report</h2>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <div className="mb-6">
-        <label htmlFor="employeeID" className="block text-lg mb-2 font-medium">
-          Employee ID:
-        </label>
-        <div ref={dropdownRef}>
-          <div
-            onClick={handleToggleDropdown}
-            className="p-3 border border-gray-300 rounded-md cursor-pointer shadow-sm relative"
-          >
-            {employeeID || 'Select an Employee ID'}
+        <div className="mb-6">
+          <label htmlFor="employeeID" className="block text-lg mb-2 font-medium text-[#2E236C]">
+            Employee ID:
+          </label>
+          <div ref={dropdownRef}>
+            <div
+              onClick={handleToggleDropdown}
+              className="p-3 border border-gray-300 rounded-md cursor-pointer shadow-sm relative"
+            >
+              {employeeID || 'Select an Employee ID'}
+            </div>
+            <EmployeeDropdown
+              employeeIDs={employeeIDs}
+              onSelect={handleSelectEmployeeID}
+              isOpen={dropdownOpen}
+            />
           </div>
-          <EmployeeDropdown
-            employeeIDs={employeeIDs}
-            onSelect={handleSelectEmployeeID}
-            isOpen={dropdownOpen}
-          />
         </div>
-      </div>
 
-      <button
-        onClick={fetchCareerProgression}
-        className="w-full bg-blue-600 text-white font-bold py-2 rounded-md hover:bg-blue-700"
-        disabled={loading}
-      >
-        {loading ? 'Fetching...' : 'Fetch Career Progression'}
-      </button>
+        <button
+          onClick={fetchCareerProgression}
+          className="w-full bg-[#433D8B] text-white font-bold py-2 rounded-md hover:bg-[#2E236C]"
+          disabled={loading}
+        >
+          {loading ? 'Fetching...' : 'Fetch Career Progression'}
+        </button>
 
-      {loading && <p className="text-lg text-gray-700 mt-6">Loading progression data...</p>}
+        {loading && <p className="text-lg text-gray-700 mt-6">Loading progression data...</p>}
 
-      {progressionData.length > 0 && (
-        <div className="mt-6">
-          <h3 className="text-2xl font-semibold mb-4">Career Progression Details:</h3>
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Employee ID</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Current Job Title</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Past Job Title</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Time Period (Years)</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Performance Rating</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {progressionData.map((record, index) => (
-                <tr key={index}>
-                  <td className="px-4 py-2 text-sm text-gray-800">{record.Employee_ID}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{record.Current_Job_Title}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{record.Past_Job_Title}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{record.Time_Period_Years}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{record.Rating_Performance}</td>
+        {progressionData.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-3xl font-semibold text-[#17153B]">Career Progression Details:</h3>
+            <table className="min-w-full divide-y divide-gray-200 mt-2">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Employee ID</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Current Job Title</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Past Job Title</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Time Period (Years)</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-600">Performance Rating</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {progressionData.map((record, index) => (
+                  <tr key={index}>
+                    <td className="px-4 py-2 text-sm text-gray-800">{record.Employee_ID}</td>
+                    <td className="px-4 py-2 text-sm text-gray-800">{record.Current_Job_Title}</td>
+                    <td className="px-4 py-2 text-sm text-gray-800">{record.Past_Job_Title}</td>
+                    <td className="px-4 py-2 text-sm text-gray-800">{record.Time_Period_Years}</td>
+                    <td className="px-4 py-2 text-sm text-gray-800">{record.Rating_Performance}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
-      {!loading && progressionData.length === 0 && !error && (
-        <p className="text-gray-700 mt-6">No progression data found for Employee ID {employeeID}.</p>
-      )}
+        {!loading && progressionData.length === 0 && !error && (
+          <p className="text-gray-700 mt-6">No progression data found for Employee ID {employeeID}.</p>
+        )}
+      </div>
     </div>
   );
 };

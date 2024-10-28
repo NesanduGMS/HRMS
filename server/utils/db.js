@@ -1,4 +1,5 @@
 import mysql from 'mysql2';
+import { promisify } from 'util';
 
 // Create a connection pool to the database
 
@@ -20,4 +21,5 @@ const db = mysql.createPool({
     }
   });
 
+db.query = promisify(db.query);
 export default db;

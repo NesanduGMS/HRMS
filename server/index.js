@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { HRrouter } from './routes/HRroute.js';
+import employeeRoutes from './routes/employeeRoutes.js'; // Import employeeRoutes with default export   //////////
+
 import db from './utils/db.js'; // Import the database connection
 
 const app = express();
@@ -14,13 +16,21 @@ app.use(cors({
 
 app.use(express.json()); // Parse incoming JSON requests
 
+
+
+// Use the HR router
+app.use('/auth', HRrouter);
+// Use employee routes
+app.use('/api/employees', employeeRoutes); // Use employee routes
 // Test route
+
+
 app.get('/', (req, res) => {
   res.send('Hello Nesa');
 });
 
 // HR routes
-app.use('/auth', HRrouter);
+//app.use('/auth', HRrouter);
 
 //***********************************************************************************************************************
 app.get('/api/departments', (req, res) => {
@@ -38,6 +48,7 @@ app.get('/api/departments', (req, res) => {
   });
 });
 
+
 app.post('/api/employees/departmentName', (req, res) => {
   const { departments } = req.body;  // Corrected to use req.body
   console.log(departments); // Log the selected department
@@ -50,6 +61,7 @@ app.post('/api/employees/departmentName', (req, res) => {
     }
 
     const employees = results[0];  // Extract employee data from results
+
 
     if (employees.length > 0) {
       res.json(employees);

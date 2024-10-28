@@ -49,7 +49,7 @@ const Leaves = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#17153B] to-[#433D8B]"> {/* Added gradient background */}
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#17153B] to-[#433D8B]">
       <div className="p-6 max-w-md bg-white rounded-lg shadow-lg">
         <h2 className="text-4xl font-bold mb-6 text-center text-[#17153B]">Fetch Total Leaves</h2>
         {loading && <p className="text-lg text-gray-700">Loading...</p>}
@@ -62,7 +62,7 @@ const Leaves = () => {
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-white"
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#C8ACD6]" // Typing box color updated here
           >
             <option value="">Select a department</option>
             {departments.map((department, index) => (
@@ -81,7 +81,7 @@ const Leaves = () => {
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-white"
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#C8ACD6]" // Typing box color updated here
           />
         </div>
 
@@ -93,7 +93,7 @@ const Leaves = () => {
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-white"
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#C8ACD6]" // Typing box color updated here
           />
         </div>
 

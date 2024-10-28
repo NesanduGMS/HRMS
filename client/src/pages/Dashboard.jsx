@@ -1,16 +1,15 @@
-
 import axios from 'axios';
 import React, { useState } from 'react';
-import { FaUser, FaInfoCircle, FaFileAlt, FaUsers, FaChartLine, FaClipboard, FaBuilding, FaLeaf, FaIdBadge, FaColumns, FaSignOutAlt } from 'react-icons/fa'; // Added icons for sub-items
+import { FaUser, FaInfoCircle, FaFileAlt, FaUsers, FaChartLine, FaClipboard, FaBuilding, FaLeaf, FaIdBadge, FaColumns, FaSignOutAlt } from 'react-icons/fa';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   axios.defaults.withCredentials = true;
-  const location = useLocation(); // Get the current location
-  const currentPath = location.pathname; // Get the current pathname
-  const navigate = useNavigate(); // For redirecting after logout
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const navigate = useNavigate();
 
-  const [isReportOpen, setIsReportOpen] = useState(false); // State to toggle Report sub-items
+  const [isReportOpen, setIsReportOpen] = useState(false);
 
   const tabs = [
     { name: 'Profile', icon: <FaUser />, path: '/dashboard/profile' },
@@ -18,11 +17,9 @@ const Dashboard = () => {
     { name: 'Leave Info', icon: <FaInfoCircle />, path: '/dashboard/leaveinfo' },
     { name: 'Leave Appeals', icon: <FaFileAlt />, path: '/dashboard/leaveappeal' },
     { name: 'Manage Employee', icon: <FaUsers />, path: '/dashboard/manageemployee' },
-    { name: 'Report', icon: <FaClipboard />, path: '#', onClick: () => setIsReportOpen(!isReportOpen) }, // Toggle report sub-items
+    { name: 'Report', icon: <FaClipboard />, path: '#', onClick: () => setIsReportOpen(!isReportOpen) },
   ];
 
-
-  // Report sub-items (these will show when the Reports button is clicked)
   const reportSubItems = [
     { name: 'Department', icon: <FaBuilding />, path: '/dashboard/report/department' },
     { name: 'Leaves', icon: <FaLeaf />, path: '/dashboard/report/leaves' },
@@ -31,57 +28,55 @@ const Dashboard = () => {
   ];
 
   const handleLogout = () => {
-    // Example: make API call to log out
     axios.get('http://localhost:3005/auth/logout')
-    .then((result) => {
-     if(result.data.Status){
-      navigate('/logout')
-     };
-    }).catch(err => {
-      console.error("Logout failed", err);
-    });
+      .then((result) => {
+        if (result.data.Status) {
+          navigate('/logout');
+        }
+      })
+      .catch(err => {
+        console.error("Logout failed", err);
+      });
   };
 
-
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-[#17153B]">
       {/* Sidebar with Tabs */}
-      <div className="w-1/5 bg-blue-800 text-white fixed left-0 h-full shadow-lg">
+      <div className="w-1/5 bg-[#2E236C] text-[#C8ACD6] fixed left-0 h-full shadow-2xl rounded-r-3xl">
         <Link to="/dashboard">
-          <h2 className="text-xl font-semibold text-center py-4 border-b border-blue-700">DASHBOARD</h2>
+          <h2 className="text-2xl font-semibold text-center py-6 border-b border-[#433D8B] tracking-wider">DASHBOARD</h2>
         </Link>
-        <nav className="flex flex-col mt-4 space-y-2">
+        <nav className="flex flex-col mt-6 space-y-4 px-4">
           {tabs.map((tab) => (
             <Link to={tab.path} key={tab.name}>
               <button
-                className={`flex items-center w-full p-4 text-left hover:bg-blue-700 transition-colors rounded-lg ${
-                  currentPath === tab.path ? 'bg-blue-700' : ''
+                className={`flex items-center w-full p-3 rounded-full text-left transition-all duration-200 ease-in-out ${
+                  currentPath === tab.path ? 'shadow-lg transform scale-105 bg-gradient-to-r from-[#433D8B] to-[#2E236C]' : 'hover:shadow-md'
                 }`}
-                onClick={tab.onClick ? tab.onClick : undefined} // Handle onClick for Report
+                onClick={tab.onClick ? tab.onClick : undefined}
               >
-                <span className={`mr-3 text-xl ${currentPath === tab.path ? 'text-blue-300' : 'text-white'}`}>
+                <span className={`mr-3 text-2xl ${currentPath === tab.path ? 'text-[#C8ACD6]' : 'text-white'}`}>
                   {tab.icon}
                 </span>
-                <span className={`${currentPath === tab.path ? 'text-blue-300' : 'text-white'}`}>{tab.name}</span>
+                <span className={`font-semibold ${currentPath === tab.path ? 'text-[#C8ACD6]' : 'text-white'}`}>{tab.name}</span>
               </button>
             </Link>
           ))}
 
-
           {/* Show report sub-items if Report is clicked */}
           {isReportOpen && (
-            <div className="ml-6 space-y-2">
+            <div className="ml-10 space-y-2">
               {reportSubItems.map((item) => (
                 <Link to={item.path} key={item.name}>
                   <button
-                    className={`flex items-center w-full p-3 text-left hover:bg-blue-700 transition-colors rounded-lg ${
-                      currentPath === item.path ? 'bg-blue-700' : ''
+                    className={`flex items-center w-full p-2 rounded-full text-left transition-all duration-200 ease-in-out ${
+                      currentPath === item.path ? 'shadow-lg transform scale-105 bg-gradient-to-r from-[#433D8B] to-[#2E236C]' : 'hover:shadow-md'
                     }`}
                   >
-                    <span className={`mr-3 text-lg ${currentPath === item.path ? 'text-blue-300' : 'text-white'}`}>
+                    <span className={`mr-2 text-xl ${currentPath === item.path ? 'text-[#C8ACD6]' : 'text-white'}`}>
                       {item.icon}
                     </span>
-                    <span className={`${currentPath === item.path ? 'text-blue-300' : 'text-white'}`}>{item.name}</span>
+                    <span className={`font-semibold ${currentPath === item.path ? 'text-[#C8ACD6]' : 'text-white'}`}>{item.name}</span>
                   </button>
                 </Link>
               ))}
@@ -91,17 +86,16 @@ const Dashboard = () => {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="flex items-center w-full p-4 mt-auto text-left bg-red-600 hover:bg-red-700 transition-colors rounded-lg"
+            className="flex items-center w-full p-4 mt-auto text-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 ease-in-out bg-gradient-to-r from-[#e63946] to-[#d62828]"
           >
-            <FaSignOutAlt className="mr-3 text-xl text-white" />
-            <span className="text-white">Logout</span>
+            <FaSignOutAlt className="mr-3 text-xl" />
+            <span className="font-semibold">Logout</span>
           </button>
-
         </nav>
       </div>
 
       {/* Main Content Area */}
-      <div className="w-4/5 ml-auto p-4">
+      <div className="w-4/5 ml-auto p-8 text-[#C8ACD6] bg-[#17153B] min-h-screen rounded-l-3xl shadow-2xl">
         <Outlet />
       </div>
     </div>

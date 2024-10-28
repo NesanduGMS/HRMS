@@ -1,5 +1,3 @@
-
-
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -51,21 +49,21 @@ function LeaveForm() {
   }, [EmployeeId]);
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-gray-300 p-6 rounded-lg shadow-md max-w-md w-full">
-        <h2 className="text-center text-2xl font-bold text-gray-700 mb-4">LEAVE FORM</h2>
+    <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#17153B] to-[#2E236C]">
+      <div className="bg-gradient-to-b from-[#2E236C] to-[#433D8B] p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h2 className="text-center text-3xl font-bold text-[#C8ACD6] mb-6">LEAVE FORM</h2>
 
         {/* Display error message if any */}
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           {/* Leave Type Select Field */}
-          <div className="mb-3">
-            <label className="block text-gray-700 font-bold mb-1" htmlFor="leaveType">Leave Type</label>
+          <div className="mb-4">
+            <label className="block text-[#C8ACD6] font-bold mb-2" htmlFor="leaveType">Leave Type</label>
             <select
               id="leaveType"
               name="leaveType"
-              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
+              className="w-full p-3 border border-[#433D8B] rounded-md text-gray-900 bg-[#17153B] text-white"
               required
               value={leaveDetail.leaveType}
               onChange={(e) => setLeaveDetail({ ...leaveDetail, leaveType: e.target.value })}
@@ -79,13 +77,13 @@ function LeaveForm() {
           </div>
 
           {/* Start Date Input Field */}
-          <div className="mb-3">
-            <label className="block text-gray-700 font-bold mb-1" htmlFor="startDate">Start Date</label>
+          <div className="mb-4">
+            <label className="block text-[#C8ACD6] font-bold mb-2" htmlFor="startDate">Start Date</label>
             <input
               type="date"
               id="startDate"
               name="startDate"
-              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
+              className="w-full p-3 border border-[#433D8B] rounded-md text-gray-900 bg-[#17153B] text-white"
               required
               value={leaveDetail.startDate}
               onChange={(e) => setLeaveDetail({ ...leaveDetail, startDate: e.target.value })}
@@ -93,13 +91,13 @@ function LeaveForm() {
           </div>
 
           {/* Number of Days Input Field */}
-          <div className="mb-3">
-            <label className="block text-gray-700 font-bold mb-1" htmlFor="numDays">NUMBER OF DAYS</label>
+          <div className="mb-4">
+            <label className="block text-[#C8ACD6] font-bold mb-2" htmlFor="numDays">NUMBER OF DAYS</label>
             <input
               type="text"
               id="numDays"
               name="numDays"
-              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
+              className="w-full p-3 border border-[#433D8B] rounded-md text-gray-900 bg-[#17153B] text-white"
               required
               value={leaveDetail.numDays}
               onChange={(e) => setLeaveDetail({ ...leaveDetail, numDays: e.target.value })}
@@ -107,14 +105,14 @@ function LeaveForm() {
           </div>
 
           {/* Supervisor ID Input Field */}
-          <div className="mb-3">
-            <label className="block text-gray-700 font-bold mb-1" htmlFor="supervisorId">SUPERVISOR ID</label>
+          <div className="mb-4">
+            <label className="block text-[#C8ACD6] font-bold mb-2" htmlFor="supervisorId">SUPERVISOR ID</label>
             <input
               type="text"
               id="supervisorId"
               name="supervisorId"
               value={sup} // Supervisor ID should be read-only
-              className="w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-white"
+              className="w-full p-3 border border-[#433D8B] rounded-md text-gray-900 bg-[#17153B] text-white"
               readOnly
             />
           </div>
@@ -123,7 +121,7 @@ function LeaveForm() {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              className="bg-gradient-to-r from-[#433D8B] to-[#2E236C] text-white px-6 py-2 rounded-md hover:bg-[#2E236C] transition duration-200"
             >
               Submit
             </button>
@@ -135,4 +133,3 @@ function LeaveForm() {
 }
 
 export default LeaveForm;
-

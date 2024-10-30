@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import person from '../assets/person.jpg';
 
 const Viewcard = () => {
   const ID = localStorage.getItem('ID');
@@ -61,7 +62,7 @@ const Viewcard = () => {
       {/* Profile Picture */}
       <div className="bg-[#2E236C] h-56 flex items-center justify-center"> {/* Background color from the palette */}
         <img
-          src="https://via.placeholder.com/150"
+          src={person}
           alt="Profile"
           className="h-40 w-40 rounded-full object-cover shadow-lg border-4 border-[#C8ACD6]" // Border color from the palette
         />

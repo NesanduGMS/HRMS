@@ -49,6 +49,8 @@ const AddEmployeePage = () => {
     },
   });
 
+  const [successMessage, setSuccessMessage] = useState(''); // State for success message
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const fieldName = name.split('.');
@@ -80,7 +82,7 @@ const AddEmployeePage = () => {
     try {
       const response = await axios.post('http://localhost:3005/api/employees/addEmployeeDetails', employeeDetails);
       const { message, Employee_Id } = response.data;
-      alert(`${message} The new Employee ID is ${Employee_Id}`);
+      setSuccessMessage(`Add successful! The new Employee ID is ${Employee_Id}`); // Set success message
     } catch (error) {
       console.error('Error adding employee details:', error.response ? error.response.data : error.message);
     }
@@ -90,6 +92,10 @@ const AddEmployeePage = () => {
     <div className="bg-primaryDark min-h-screen flex justify-center items-center p-6">
       <div className="w-full max-w-2xl bg-primary p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-accentLight text-center mb-6">Add New Employee</h2>
+        
+        {/* Success Message */}
+        {successMessage && <p className="text-green-500 text-center mb-4">{successMessage}</p>}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Employee Personal Details */}
           <h3 className="text-lg font-semibold text-accentDark">Employee Personal Details</h3>
@@ -182,12 +188,11 @@ const AddEmployeePage = () => {
           <input className="form-input w-full p-2 bg-white rounded text-primaryDark" name="supervisorDetails.Supervisor_Id" placeholder="Supervisor ID" required onChange={handleChange} />
 
           <button
-          type="submit"
-  className="w-full py-3 rounded bg-gradient-to-r from-[#17153B] to-[#2E236C] text-white font-semibold border border-[#433D8B] hover:from-[#2E236C] hover:to-[#17153B] transition-all"
->
-  Add Employee
-</button>
-
+            type="submit"
+            className="w-full py-3 rounded bg-gradient-to-r from-[#17153B] to-[#2E236C] text-white font-semibold border border-[#433D8B] hover:from-[#2E236C] hover:to-[#17153B] transition-all"
+          >
+            Add Employee
+          </button>
         </form>
       </div>
     </div>

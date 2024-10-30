@@ -52,6 +52,8 @@ const Adminset = () => {
     },
   });
 
+  const [successMessage, setSuccessMessage] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const fieldName = name.split('.');
@@ -83,7 +85,7 @@ const Adminset = () => {
     try {
       const response = await axios.post('http://localhost:3005/api/employees/addEmployeeDetails', employeeDetails);
       const { message, Employee_Id } = response.data;
-      alert(`${message} The new Employee ID is ${Employee_Id}`);
+      setSuccessMessage(`${message} The new Employee ID is ${Employee_Id}`);
     } catch (error) {
       console.error('Error adding employee details:', error.response ? error.response.data : error.message);
     }
@@ -99,6 +101,11 @@ const Adminset = () => {
     <div className="min-h-screen flex justify-center items-center p-6 bg-[#17153B]">
       <div className="w-full max-w-2xl bg-[#2E236C] p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-[#C8ACD6] text-center mb-6">Add New HR MANAGER</h2>
+
+        {/* Success Message */}
+        {successMessage && (
+          <p className="text-green-500 text-center mb-4 font-semibold">{successMessage}</p>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Employee Personal Details */}

@@ -1,12 +1,14 @@
+-- Existing Procedures
+
 DELIMITER //
 
 CREATE PROCEDURE getEmployeeByDepartment(IN department VARCHAR(20))
 BEGIN
-	SELECT Employee_Id,Full_Name,Gender,Country FROM getEmployee
-    WHERE Work_Section=department;
+	SELECT Employee_Id, Full_Name, Gender, Country FROM getEmployee
+    WHERE Work_Section = department;
 END //
 
-DELIMITER ;
+DELIMITER //
 
 /****************************************************************************************************************/
 
@@ -19,7 +21,7 @@ CREATE PROCEDURE GetEmployees(
 )
 BEGIN
     -- Initialize the base query
-    SET @sql = 'SELECT * FROM getEmployee WHERE 1=1';    -- Prefixed with @, they are accessible across different sessions and can store data that persists until the session is terminated
+    SET @sql = 'SELECT * FROM getEmployee WHERE 1=1';
 
     -- Initialize variables for dynamic parameter binding
     SET @param1 = NULL;
@@ -71,11 +73,9 @@ BEGIN
     DEALLOCATE PREPARE stmt;
 END //
 
-DELIMITER ;
-
+DELIMITER //
 
 /****************************************************************************************************************/
-
 
 DELIMITER //
 
@@ -91,8 +91,53 @@ SELECT lr.Leave_Type,
        ) AS Total_Leave_Days
 FROM getEmployee ge
 JOIN Leave_Request lr USING(employee_id)
-WHERE ge.Work_Section=department AND lr.Approval_Status='1' AND lr.Start_Date BETWEEN start_time AND end_time
+WHERE ge.Work_Section = department AND lr.Approval_Status = '1' AND lr.Start_Date BETWEEN start_time AND end_time
 GROUP BY Leave_Type;
 END //
 
+DELIMITER //
+
+/****************************************************************************************************************/
+
+-- New Procedures for Dashboard Stats
+
+DELIMITER //
+
+-- Procedure to get total employees
+CREATE PROCEDURE getTotalEmployees()
+BEGIN
+    SELECT COUNT(*) AS totalEmployees FROM getEmployee;
+END //
+
+DELIMITER //
+
+DELIMITER //
+
+-- Procedure to get total leaves taken
+CREATE PROCEDURE getLeavesTaken()
+BEGIN
+    SELECT COUNT(*) AS leavesTaken FROM Leave_Request WHERE Approval_Status = '1';
+END //
+
+DELIMITER //
+
+DELIMITER //
+
+-- Procedure to get pending leave appeals
+CREATE PROCEDURE getPendingLeaveAppeals()
+BEGIN
+    SELECT COUNT(*) AS pendingLeaveAppeals FROM Leave_Request WHERE Approval_Status = 'pending';
+END //
+
+DELIMITER //
+
+DELIMITER //
+
+-- Procedure to get average performance score
+CREATE PROCEDURE getAveragePerformance()
+BEGIN
+    SELECT AVG(performance_score) AS averagePerformance FROM performance_reviews;
+END //
+
 DELIMITER ;
+

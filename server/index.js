@@ -4,6 +4,7 @@ import { HRrouter } from './routes/HRroute.js';
 import employeeRoutes from './routes/employeeRoutes.js'; // Import employeeRoutes with default export   //////////
 
 import db from './utils/db.js'; // Import the database connection
+import { Adminroute } from './routes/Adminroute.js';
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use('/auth', HRrouter);
 // Use employee routes
 app.use('/api/employees', employeeRoutes); // Use employee routes
 // Test route
-
+app.use('/admin', Adminroute);
 
 app.get('/', (req, res) => {
   res.send('Hello Nesa');

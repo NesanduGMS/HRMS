@@ -39,3 +39,11 @@ export const login = (req, res) => {
     return res.json({ Status: true, Message: 'Login successful', Result: result[0] });
   });
 }
+
+export const viweadd = (req, res) => {
+  const sql = 'SELECT * FROM Adminview ';
+  db.query(sql, (err, result) => {
+    if (err) return res.status(500).json({ Status: false, Error: 'Query error' });
+    return res.json({ Status: true, Result: result });
+  });
+}

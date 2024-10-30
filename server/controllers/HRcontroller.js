@@ -1,24 +1,43 @@
 import jwt from 'jsonwebtoken';
 import db from '../utils/db.js';
 
-// Function for login
+
+import bcrypt from 'bcrypt';
+
 export const login = (req, res) => {
-    const sql = "SELECT * FROM User_Account WHERE User_Id = ? and User_Password = ?";
-    db.query(sql, [req.body.userid, req.body.password], (err, result) => {
+    const sql = "SELECT * FROM User_Account WHERE User_Id = ?";
+    db.query(sql, [req.body.userid], (err, result) => {
         if (err) return res.json({ loginStatus: false, Error: err.message });
+
         if (result.length > 0) {
-            const role = result[0].Role;
-            const token = jwt.sign({ Role: role, Userid: result[0].User_Id }, 'sercretkey', { expiresIn: '1d' });
-            res.cookie('token', token);
-            return res.json({ loginStatus: true, Employeeid: result[0].Employee_Id, ROLE: role });
+            // Retrieve hashed password from the database
+            const hashedPassword = result[0].User_Password;
+
+            // Compare entered password with the hashed password
+            bcrypt.compare(req.body.password, hashedPassword, (bcryptErr, isMatch) => {
+                if (bcryptErr) return res.json({ loginStatus: false, Error: bcryptErr.message });
+
+                if (isMatch) {
+                    const role = result[0].Role;
+                    const token = jwt.sign(
+                        { Role: role, Userid: result[0].User_Id },
+                        'secretkey',
+                        { expiresIn: '1d' }
+                    );
+                    res.cookie('token', token);
+                    return res.json({ loginStatus: true, Employeeid: result[0].Employee_Id, ROLE: role });
+                } else {
+                    return res.json({ loginStatus: false, Error: "Incorrect password" });
+                }
+            });
         } else {
-            return res.json({ loginStatus: false, Error: "wrong email or password" });
+            return res.json({ loginStatus: false, Error: "User not found" });
         }
     });
 };
 
-// Other functions related to user details, leaves, and information retrieval
-export const userdetails = (req, res) => {
+export const userdetails = (req,res)=>{
+    
     const sql = "SELECT * FROM Profileinfo WHERE Employee_Id = ?";
     db.query(sql, [req.params.userId], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'query error' });

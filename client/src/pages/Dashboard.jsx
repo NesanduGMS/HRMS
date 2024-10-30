@@ -1,9 +1,10 @@
-// src/pages/Dashboard.jsx
+
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import StatCard from './StatCard';
 import bannerImage from '../assets/dashboard-banner.jpg';
 import { FaUser, FaInfoCircle, FaFileAlt, FaUsers, FaChartLine, FaClipboard, FaBuilding, FaLeaf, FaIdBadge, FaColumns, FaSignOutAlt } from 'react-icons/fa';
+
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -12,6 +13,7 @@ const Dashboard = () => {
     const currentPath = location.pathname;
     const navigate = useNavigate();
     const [isReportOpen, setIsReportOpen] = useState(false);
+
 
     // State to hold the stats data
     const [stats, setStats] = useState({
@@ -32,6 +34,21 @@ const Dashboard = () => {
             } catch (error) {
                 console.error("Error fetching totalEmployees:", error);
             }
+         fetchStats();
+    }, []);
+
+  const ROLE = localStorage.getItem('ROLE');
+  const [isReportOpen, setIsReportOpen] = useState(false);
+
+  const tabs = [
+    { name: 'Profile', icon: <FaUser />, path: '/dashboard/profile', roles: ['HR_Manager', 'Supervisor', 'Employee', 'Manager'] },
+    { name: 'Performance', icon: <FaChartLine />, path: '/dashboard/performance', roles: ['HR_Manager', 'Supervisor', 'Employee', 'Manager'] },
+    { name: 'Leave Info', icon: <FaInfoCircle />, path: '/dashboard/leaveinfo', roles: ['HR_Manager', 'Supervisor', 'Employee', 'Manager'] },
+    { name: 'Leave Appeals', icon: <FaFileAlt />, path: '/dashboard/leaveappeal', roles: ['Supervisor'] },
+    { name: 'Manage Employee', icon: <FaUsers />, path: '/dashboard/manageemployee', roles: ['HR_Manager'] },
+    { name: 'Report', icon: <FaClipboard />, path: '#', roles: ['HR_Manager', 'Manager'], onClick: () => setIsReportOpen(!isReportOpen) },
+  ];
+
 
             try {
                 const resLeaves = await axios.get('http://localhost:3005/auth/leavesTaken');
@@ -54,25 +71,6 @@ const Dashboard = () => {
             }
         };
 
-        fetchStats();
-    }, []);
-
-    const tabs = [
-        { name: 'Profile', icon: <FaUser />, path: '/dashboard/profile' },
-        { name: 'Performance', icon: <FaChartLine />, path: '/dashboard/performance' },
-        { name: 'Leave Info', icon: <FaInfoCircle />, path: '/dashboard/leaveinfo' },
-        { name: 'Leave Appeals', icon: <FaFileAlt />, path: '/dashboard/leaveappeal' },
-        { name: 'Manage Employee', icon: <FaUsers />, path: '/dashboard/manageemployee' },
-        { name: 'Report', icon: <FaClipboard />, path: '#', onClick: () => setIsReportOpen(!isReportOpen) },
-    ];
-
-    const reportSubItems = [
-        { name: 'Department', icon: <FaBuilding />, path: '/dashboard/report/department' },
-        { name: 'Leaves', icon: <FaLeaf />, path: '/dashboard/report/leaves' },
-        { name: 'Employee', icon: <FaIdBadge />, path: '/dashboard/report/employee' },
-        { name: 'Custom Fields', icon: <FaColumns />, path: '/dashboard/report/customfields' },
-    ];
-
     const handleLogout = () => {
         axios.get('http://localhost:3005/auth/logout')
             .then((result) => {
@@ -85,12 +83,64 @@ const Dashboard = () => {
             });
     };
 
-    return (
-        <div style={{ minHeight: '100vh', display: 'flex', backgroundColor: '#17153B' }}>
+
+
+
+  return (
+//     <div className="min-h-screen flex bg-[#17153B]">
+//       {/* Sidebar with Tabs */}
+//       <div className="w-1/5 bg-[#2E236C] text-[#C8ACD6] fixed left-0 h-full shadow-2xl rounded-r-3xl">
+//         <Link to="/dashboard">
+//           <h2 className="text-2xl font-semibold text-center py-6 border-b border-[#433D8B] tracking-wider">DASHBOARD</h2>
+              <div style={{ minHeight: '100vh', display: 'flex', backgroundColor: '#17153B' }}>
             {/* Sidebar with Tabs */}
             <div style={{ width: '20%', backgroundColor: '#2E236C', color: '#C8ACD6', position: 'fixed', left: 0, height: '100%', boxShadow: '2xl', borderRadius: '0 24px 24px 0' }}>
                 <Link to="/dashboard">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', textAlign: 'center', padding: '24px', borderBottom: '1px solid #433D8B', letterSpacing: '0.1em' }}>DASHBOARD</h2>
+        </Link>
+        <nav className="flex flex-col mt-6 space-y-4 px-4">
+          {tabs
+            .filter(tab => tab.roles.includes(ROLE)) // Filter tabs based on ROLE
+            .map((tab) => (
+              <Link to={tab.path} key={tab.name}>
+                <button
+                  className={`flex items-center w-full p-3 rounded-full text-left transition-all duration-200 ease-in-out ${
+                    currentPath === tab.path
+                      ? 'shadow-lg transform scale-105 bg-gradient-to-r from-[#433D8B] to-[#2E236C]'
+                      : 'hover:shadow-md'
+                  }`}
+                  onClick={tab.onClick ? tab.onClick : undefined}
+                >
+                  <span className={`mr-3 text-2xl ${currentPath === tab.path ? 'text-[#C8ACD6]' : 'text-white'}`}>
+                    {tab.icon}
+                  </span>
+                  <span className={`font-semibold ${currentPath === tab.path ? 'text-[#C8ACD6]' : 'text-white'}`}>
+                    {tab.name}
+                  </span>
+                </button>
+              </Link>
+            ))}
+
+          {/* Show report sub-items if Report is clicked */}
+          {isReportOpen && (ROLE === 'HR_Manager' || ROLE === 'Manager') && (
+            <div className="ml-10 space-y-2">
+              {reportSubItems.map((item) => (
+                <Link to={item.path} key={item.name}>
+                  <button
+                    className={`flex items-center w-full p-2 rounded-full text-left transition-all duration-200 ease-in-out ${
+                      currentPath === item.path
+                        ? 'shadow-lg transform scale-105 bg-gradient-to-r from-[#433D8B] to-[#2E236C]'
+                        : 'hover:shadow-md'
+                    }`}
+                  >
+                    <span className={`mr-2 text-xl ${currentPath === item.path ? 'text-[#C8ACD6]' : 'text-white'}`}>
+                      {item.icon}
+                    </span>
+                    <span className={`font-semibold ${currentPath === item.path ? 'text-[#C8ACD6]' : 'text-white'}`}>
+                      {item.name}
+                    </span>
+                  </button>
+
                 </Link>
                 <nav style={{ display: 'flex', flexDirection: 'column', marginTop: '1.5rem', padding: '0 16px' }}>
                     {tabs.map((tab) => (

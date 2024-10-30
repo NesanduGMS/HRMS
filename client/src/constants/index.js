@@ -15,11 +15,11 @@ export const navigation = [
   //   title: "Report",
   //   url: "/report",
   // },
-  {
-    id: "3",
-    title: "Leaveform",
-    url: "/leaveform",
-  },
+  // {
+  //   id: "3",
+  //   title: "Leaveform",
+  //   url: "/leaveform",
+  // },
   {
     id: "4",
     title: "Contact Us",

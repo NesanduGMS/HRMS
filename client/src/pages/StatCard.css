@@ -1,0 +1,34 @@
+/* StatCard.css */
+.stat-card {
+    width: 200px;
+    background-color: #2d2f53; /* Darker background to match the theme */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #C8ACD6; /* Light color for text */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.stat-card h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #f0e9ff; /* Slightly lighter color for the label */
+}
+
+.stat-card p {
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff; /* Bright color for the value */
+}

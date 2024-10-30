@@ -62,7 +62,7 @@ const Leaves = () => {
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#C8ACD6]" // Typing box color updated here
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#17153B]" // Typing box color updated here
           >
             <option value="">Select a department</option>
             {departments.map((department, index) => (
@@ -81,7 +81,7 @@ const Leaves = () => {
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#C8ACD6]" // Typing box color updated here
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#17153B]" // Typing box color updated here
           />
         </div>
 
@@ -93,7 +93,7 @@ const Leaves = () => {
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#C8ACD6]" // Typing box color updated here
+            className="w-full p-3 border border-[#433D8B] rounded-md shadow-sm bg-[#17153B]" // Typing box color updated here
           />
         </div>
 

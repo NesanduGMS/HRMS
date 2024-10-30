@@ -110,6 +110,7 @@ import {
   FaBuilding, FaLeaf, FaIdBadge, FaColumns, FaSignOutAlt
 } from 'react-icons/fa';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import bannerImage from '../assets/dashboard-banner.jpg'; // Importing the banner image
 
 const Dashboard = () => {
   axios.defaults.withCredentials = true;
@@ -157,7 +158,7 @@ const Dashboard = () => {
         </Link>
         <nav className="flex flex-col mt-6 space-y-4 px-4">
           {tabs
-            .filter(tab => tab.roles.includes(ROLE)) // Filter tabs based on ROLE
+            .filter(tab => tab.roles.includes(ROLE))
             .map((tab) => (
               <Link to={tab.path} key={tab.name}>
                 <button
@@ -178,7 +179,6 @@ const Dashboard = () => {
               </Link>
             ))}
 
-          {/* Show report sub-items if Report is clicked */}
           {isReportOpen && (ROLE === 'HR_Manager' || ROLE === 'Manager') && (
             <div className="ml-10 space-y-2">
               {reportSubItems.map((item) => (
@@ -202,7 +202,6 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* Logout Button */}
           <button
             onClick={handleLogout}
             className="flex items-center w-full p-4 mt-auto text-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 ease-in-out bg-gradient-to-r from-[#e63946] to-[#d62828]"
@@ -215,7 +214,23 @@ const Dashboard = () => {
 
       {/* Main Content Area */}
       <div className="w-4/5 ml-auto p-8 text-[#C8ACD6] bg-[#17153B] min-h-screen rounded-l-3xl shadow-2xl">
-        <Outlet />
+        {currentPath === '/dashboard' ? (
+          <div
+            className="w-full h-full relative rounded-lg shadow-md flex items-center justify-center text-white"
+            style={{ backgroundImage: `url(${bannerImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+          >
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black opacity-50 rounded-lg"></div>
+
+            {/* Text Content */}
+            <div className="relative z-10 text-center">
+              <h1 className="text-4xl font-bold mb-4">Welcome to Your Dashboard!</h1>
+              <p className="text-lg">Manage your tasks, performance, and reports all in one place.</p>
+            </div>
+          </div>
+        ) : (
+          <Outlet />
+        )}
       </div>
     </div>
   );

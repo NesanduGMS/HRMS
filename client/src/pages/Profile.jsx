@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import person from '../assets/person.jpg';
 
 const Profile = () => {
   const userId = localStorage.getItem('ID');
@@ -26,7 +27,7 @@ const Profile = () => {
         {/* Profile Picture */}
         <div className="w-40 h-40 rounded-full overflow-hidden mx-auto shadow-lg mb-6 border-4 border-[#C8ACD6]">
           <img
-            src="https://via.placeholder.com/150"
+            src= { person }
             alt="Profile"
             className="w-full h-full object-cover"
           />

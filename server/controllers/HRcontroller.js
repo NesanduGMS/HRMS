@@ -189,12 +189,75 @@ export const fetchleaves = (req, res) => {
 
 
 export const approveleave = (req, res) => {
-    const sql = "UPDATE Leave_Request SET Approval_Status = 1 WHERE Request_Id = ?";
-    db.query(sql, [req.params.id], (err, result) => {
-      if (err) return res.json({ Status: false, Error: 'Query error' });
-      return res.json({ Status: true, Message: 'Leave request approved' });
+    // Get a connection from the pool
+    db.getConnection((err, connection) => {
+        if (err) {
+            console.error('Error getting connection:', err);
+            return res.json({ Status: false, Error: 'Connection failed', Details: err.message });
+        }
+
+        // Start transaction
+        connection.query('START TRANSACTION', (err) => {
+            if (err) {
+                console.error('Error starting transaction:', err);
+                connection.release();
+                return res.json({ Status: false, Error: 'Transaction start failed', Details: err.message });
+            }
+
+            // Step 1: Update Approval Status
+            const approveSql = "UPDATE Leave_Request SET Approval_Status = 1 WHERE Request_Id = ?";
+            connection.query(approveSql, [req.params.id], (err) => {
+                if (err) {
+                    console.error('Error updating approval status:', err);
+                    return connection.query('ROLLBACK', () => {
+                        connection.release();
+                        res.json({ Status: false, Error: 'Approval update failed', Details: err.message });
+                    });
+                }
+
+                // Step 2: Get Leave Request details
+                const leaveRequestSql = "SELECT Employee_Id, Leave_Type, Time_Period_Days FROM Leave_Request WHERE Request_Id = ?";
+                connection.query(leaveRequestSql, [req.params.id], (err, results) => {
+                    if (err) {
+                        console.error('Error fetching leave request details:', err);
+                        return connection.query('ROLLBACK', () => {
+                            connection.release();
+                            res.json({ Status: false, Error: 'Leave request fetch failed', Details: err.message });
+                        });
+                    }
+
+                    const leaveRequest = results[0];
+                    const { Employee_Id, Leave_Type, Time_Period_Days } = leaveRequest;
+
+                    // Step 3: Update Available Leaves
+                    const updateLeavesSql = `
+                        UPDATE Available_Leaves 
+                        SET ${Leave_Type}_Leaves = ${Leave_Type}_Leaves - ? 
+                        WHERE Employee_Id = ?`;
+                    connection.query(updateLeavesSql, [Time_Period_Days, Employee_Id], (err) => {
+                        if (err) {
+                            console.error('Error updating available leaves:', err);
+                            return connection.query('ROLLBACK', () => {
+                                connection.release();
+                                res.json({ Status: false, Error: 'Available leaves update failed', Details: err.message });
+                            });
+                        }
+
+                        // Commit transaction
+                        connection.query('COMMIT', (err) => {
+                            connection.release();
+                            if (err) {
+                                console.error('Error committing transaction:', err);
+                                return res.json({ Status: false, Error: 'Transaction commit failed', Details: err.message });
+                            }
+                            res.json({ Status: true, Message: 'Leave request approved' });
+                        });
+                    });
+                });
+            });
+        });
     });
-  };
+};
   
 
 export const getPerformance = (req,res)=>{

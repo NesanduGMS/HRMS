@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import me from '../assets/me.jpg';
 const Adminset = () => {
   const navigate = useNavigate();
 
@@ -98,7 +98,15 @@ const Adminset = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center p-6 bg-[#17153B]">
+    //<div className="min-h-screen flex justify-center items-center p-6 bg-[#17153B]">
+    <div
+    style={{
+      backgroundImage: `linear-gradient(to bottom, rgba(23, 21, 59, 0.7), rgba(23, 21, 59, 0.7)), url(${me})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+    className="min-h-screen flex justify-center items-center p-6"
+  >  
       <div className="w-full max-w-2xl bg-[#2E236C] p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-[#C8ACD6] text-center mb-6">Add New HR MANAGER</h2>
 
@@ -203,3 +211,5 @@ const Adminset = () => {
 };
 
 export default Adminset;
+
+

@@ -1,10 +1,14 @@
-import React from 'react'
-import Viewcard from '../components/Viewcard'
+
+import React from 'react';
+import Viewcard from '../components/Viewcard';
+
 
 const Viewpersonalinfo = () => {
   return (
-    <div><Viewcard/></div>
-  )
+    <div>
+      <Viewcard />
+    </div>
+  );
 }
 
-export default Viewpersonalinfo
+export default Viewpersonalinfo;

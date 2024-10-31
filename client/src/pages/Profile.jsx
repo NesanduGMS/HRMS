@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import person from '../assets/person.jpg';
+import office from '../assets/office.jpg';
 
 const Profile = () => {
   const userId = localStorage.getItem('ID');
@@ -21,13 +23,20 @@ const Profile = () => {
   }, [userId]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#17153B] to-[#2E236C] flex flex-col items-center py-12">
+    <div
+      className="min-h-screen flex flex-col items-center py-12"
+      style={{
+        backgroundImage: `linear-gradient(to right, rgba(23, 21, 59, 0.85), rgba(46, 35, 108, 0.85)), url(${office})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       {/* Profile Card */}
       <div className="bg-white shadow-xl rounded-2xl p-8 w-11/12 md:w-1/2 lg:w-1/3">
         {/* Profile Picture */}
         <div className="w-40 h-40 rounded-full overflow-hidden mx-auto shadow-lg mb-6 border-4 border-[#C8ACD6]">
           <img
-            src= { person }
+            src={person}
             alt="Profile"
             className="w-full h-full object-cover"
           />

@@ -1,6 +1,9 @@
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import admin from '../assets/admin.jpg';
 
 const AdminLog = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +13,6 @@ const AdminLog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Example of making a login request
     try {
       const response = await axios.post('http://localhost:3005/admin/login', {
         email,
@@ -18,7 +20,7 @@ const AdminLog = () => {
       });
       setMessage('Login successful!');
       navigate('/admin');
-      console.log(response.data); // handle response
+      console.log(response.data);
     } catch (error) {
       setMessage('Login failed. Please check your credentials.');
       console.error('Error:', error);
@@ -26,9 +28,16 @@ const AdminLog = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#17153B]"> {/* Background color */}
+    <div
+      style={{
+        backgroundImage: `linear-gradient(to bottom, rgba(23, 21, 59, 0.7), rgba(23, 21, 59, 0.7)), url(${admin})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+      className="flex items-center justify-center min-h-screen"
+    >
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h1 className="text-2xl font-semibold mb-6 text-center text-[#2E236C]">Admin Login</h1> {/* Header color */}
+        <h1 className="text-2xl font-semibold mb-6 text-center text-[#2E236C]">Admin Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1 text-[#2E236C]" htmlFor="email">
@@ -39,7 +48,7 @@ const AdminLog = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg border-[#433D8B] focus:outline-none focus:ring-2 focus:ring-[#C8ACD6] text-white bg-gray-800" // Added text-white and bg-gray-800
+              className="w-full px-4 py-2 border rounded-lg border-[#433D8B] focus:outline-none focus:ring-2 focus:ring-[#C8ACD6] text-white bg-gray-800"
               placeholder="Enter your email"
               required
             />
@@ -53,7 +62,7 @@ const AdminLog = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg border-[#433D8B] focus:outline-none focus:ring-2 focus:ring-[#C8ACD6] text-white bg-gray-800" // Added text-white and bg-gray-800
+              className="w-full px-4 py-2 border rounded-lg border-[#433D8B] focus:outline-none focus:ring-2 focus:ring-[#C8ACD6] text-white bg-gray-800"
               placeholder="Enter your password"
               required
             />
@@ -65,7 +74,7 @@ const AdminLog = () => {
             Login
           </button>
         </form>
-        {message && <p className="mt-4 text-center text-[#C8ACD6]">{message}</p>} {/* Display message */}
+        {message && <p className="mt-4 text-center text-[#C8ACD6]">{message}</p>}
       </div>
     </div>
   );

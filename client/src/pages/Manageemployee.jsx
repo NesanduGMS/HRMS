@@ -72,24 +72,24 @@ const Manageemployee = () => {
             >
               Professional Details
             </button>
-            <button
+            {/* <button
               onClick={() => handleSectionNavigation('past-job-position')}
               className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Past Job Position
-            </button>
+            </button> */}
             <button
               onClick={() => handleSectionNavigation('emergency-info')}
               className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Emergency Information
             </button>
-            <button
+            {/* <button
               onClick={() => handleSectionNavigation('supervisor-details')}
               className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
             >
               Supervisor Details
-            </button>
+            </button> */}
             <button
               onClick={() => handleSectionNavigation('user-account')}
               className="bg-[#433D8B] text-white px-4 py-2 rounded-lg hover:bg-[#2E236C] transition"
